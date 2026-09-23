@@ -1,0 +1,284 @@
+{
+  "demonstrationId": "DEMO-5",
+  "narration": {
+    "narrationId": "NARRATION-5",
+    "text": "The invoice quantity matches the quantity actually received, so there is no discrepancy there. The price also matches the purchase order within the allowed tolerance. Everything checks out, so I can release the invoice."
+  },
+  "events": [
+    {
+      "eventId": "E049",
+      "timestamp": "15:48:36.115",
+      "action": "SEARCH",
+      "sheet": "Invoices",
+      "value": "INV-95500",
+      "element": {
+        "role": null,
+        "name": null,
+        "text": "",
+        "row": null,
+        "column": null,
+        "css": "input#search-box",
+        "xpath": "/html[1]/body[1]/section[1]/input[1]",
+        "accessibilityPath": "",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E050",
+      "timestamp": "15:48:39.563",
+      "action": "READ_CELL",
+      "sheet": "Invoices",
+      "column": "Block Reason",
+      "value": "",
+      "element": {
+        "role": "gridcell",
+        "name": "blockReason",
+        "text": "",
+        "row": 1,
+        "column": 5,
+        "css": "[data-row-key=\"INV-95500\"] [data-field=\"blockReason\"]",
+        "xpath": "/html[1]/body[1]/main[1]/table[1]/tbody[1]/tr[1]/td[6]",
+        "accessibilityPath": "grid > gridcell",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E051",
+      "timestamp": "15:48:44.732",
+      "action": "READ_CELL",
+      "sheet": "Invoices",
+      "column": "Invoice Qty",
+      "value": 100,
+      "element": {
+        "role": "gridcell",
+        "name": "invoiceQty",
+        "text": "100",
+        "row": 1,
+        "column": 3,
+        "css": "[data-row-key=\"INV-95500\"] [data-field=\"invoiceQty\"]",
+        "xpath": "/html[1]/body[1]/main[1]/table[1]/tbody[1]/tr[1]/td[4]",
+        "accessibilityPath": "grid > gridcell",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E052",
+      "timestamp": "15:48:46.280",
+      "action": "READ_CELL",
+      "sheet": "Invoices",
+      "column": "Unit Price",
+      "value": 100,
+      "element": {
+        "role": "gridcell",
+        "name": "unitPrice",
+        "text": "100",
+        "row": 1,
+        "column": 4,
+        "css": "[data-row-key=\"INV-95500\"] [data-field=\"unitPrice\"]",
+        "xpath": "/html[1]/body[1]/main[1]/table[1]/tbody[1]/tr[1]/td[5]",
+        "accessibilityPath": "grid > gridcell",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E053",
+      "timestamp": "15:48:49.231",
+      "action": "READ_CELL",
+      "sheet": "Invoices",
+      "column": "PO Number",
+      "value": "PO-4500300",
+      "element": {
+        "role": "gridcell",
+        "name": "poNumber",
+        "text": "PO-4500300",
+        "row": 1,
+        "column": 1,
+        "css": "[data-row-key=\"INV-95500\"] [data-field=\"poNumber\"]",
+        "xpath": "/html[1]/body[1]/main[1]/table[1]/tbody[1]/tr[1]/td[2]",
+        "accessibilityPath": "grid > gridcell",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E054",
+      "timestamp": "15:48:50.481",
+      "action": "SELECT_SHEET",
+      "sheet": "Purchase Orders",
+      "element": {
+        "role": null,
+        "name": null,
+        "text": "Purchase Orders",
+        "row": null,
+        "column": null,
+        "css": "nav#tabs > button:nth-of-type(2)",
+        "xpath": "/html[1]/body[1]/nav[1]/button[2]",
+        "accessibilityPath": "",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E055",
+      "timestamp": "15:48:52.807",
+      "action": "SEARCH",
+      "sheet": "Purchase Orders",
+      "value": "PO-4500300",
+      "element": {
+        "role": null,
+        "name": null,
+        "text": "",
+        "row": null,
+        "column": null,
+        "css": "input#search-box",
+        "xpath": "/html[1]/body[1]/section[1]/input[1]",
+        "accessibilityPath": "",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E056",
+      "timestamp": "15:48:54.581",
+      "action": "READ_CELL",
+      "sheet": "Purchase Orders",
+      "column": "Ordered Qty",
+      "value": 100,
+      "element": {
+        "role": "gridcell",
+        "name": "orderedQty",
+        "text": "100",
+        "row": 1,
+        "column": 1,
+        "css": "[data-row-key=\"PO-4500300\"] [data-field=\"orderedQty\"]",
+        "xpath": "/html[1]/body[1]/main[1]/table[1]/tbody[1]/tr[1]/td[2]",
+        "accessibilityPath": "grid > gridcell",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E057",
+      "timestamp": "15:48:56.151",
+      "action": "READ_CELL",
+      "sheet": "Purchase Orders",
+      "column": "Unit Price",
+      "value": 100,
+      "element": {
+        "role": "gridcell",
+        "name": "unitPrice",
+        "text": "100",
+        "row": 1,
+        "column": 2,
+        "css": "[data-row-key=\"PO-4500300\"] [data-field=\"unitPrice\"]",
+        "xpath": "/html[1]/body[1]/main[1]/table[1]/tbody[1]/tr[1]/td[3]",
+        "accessibilityPath": "grid > gridcell",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E058",
+      "timestamp": "15:48:57.266",
+      "action": "SELECT_SHEET",
+      "sheet": "Goods Receipts",
+      "element": {
+        "role": null,
+        "name": null,
+        "text": "Goods Receipts",
+        "row": null,
+        "column": null,
+        "css": "nav#tabs > button:nth-of-type(3)",
+        "xpath": "/html[1]/body[1]/nav[1]/button[3]",
+        "accessibilityPath": "",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E059",
+      "timestamp": "15:48:59.080",
+      "action": "SEARCH",
+      "sheet": "Goods Receipts",
+      "value": "PO-4500300",
+      "element": {
+        "role": null,
+        "name": null,
+        "text": "",
+        "row": null,
+        "column": null,
+        "css": "input#search-box",
+        "xpath": "/html[1]/body[1]/section[1]/input[1]",
+        "accessibilityPath": "",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E060",
+      "timestamp": "15:49:01.181",
+      "action": "READ_CELL",
+      "sheet": "Goods Receipts",
+      "column": "Received Qty",
+      "value": 100,
+      "element": {
+        "role": "gridcell",
+        "name": "receivedQty",
+        "text": "100",
+        "row": 1,
+        "column": 1,
+        "css": "[data-row-key=\"PO-4500300\"] [data-field=\"receivedQty\"]",
+        "xpath": "/html[1]/body[1]/main[1]/table[1]/tbody[1]/tr[1]/td[2]",
+        "accessibilityPath": "grid > gridcell",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E061",
+      "timestamp": "15:49:41.298",
+      "action": "SELECT_SHEET",
+      "sheet": "Invoices",
+      "element": {
+        "role": null,
+        "name": null,
+        "text": "Invoices",
+        "row": null,
+        "column": null,
+        "css": "nav#tabs > button:nth-of-type(1)",
+        "xpath": "/html[1]/body[1]/nav[1]/button[1]",
+        "accessibilityPath": "",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E062",
+      "timestamp": "15:49:50.847",
+      "action": "SEARCH",
+      "sheet": "Invoices",
+      "value": "INV-95500",
+      "element": {
+        "role": null,
+        "name": null,
+        "text": "",
+        "row": null,
+        "column": null,
+        "css": "input#search-box",
+        "xpath": "/html[1]/body[1]/section[1]/input[1]",
+        "accessibilityPath": "",
+        "nearbyText": []
+      }
+    },
+    {
+      "eventId": "E063",
+      "timestamp": "15:49:56.798",
+      "action": "WRITE_CELL",
+      "sheet": "Invoices",
+      "column": "Resolution",
+      "value": "RELEASED",
+      "element": {
+        "role": "gridcell",
+        "name": "resolution",
+        "text": "RELEASED",
+        "row": 1,
+        "column": 7,
+        "css": "[data-row-key=\"INV-95500\"] [data-field=\"resolution\"]",
+        "xpath": "/html[1]/body[1]/main[1]/table[1]/tbody[1]/tr[1]/td[8]",
+        "accessibilityPath": "grid > gridcell",
+        "nearbyText": []
+      }
+    }
+  ]
+}

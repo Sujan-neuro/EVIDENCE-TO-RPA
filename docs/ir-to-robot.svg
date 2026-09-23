@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 820" width="1600" height="820" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <rect width="1600" height="820" fill="#ffffff"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5b6472"/></marker>
+    <marker id="aG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3f9c63"/></marker>
+    <marker id="aR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/></marker>
+  </defs>
+  <style>
+    .box   { fill:#ffffff; stroke:#9aa5b4; stroke-width:1.8; rx:9 }
+    .llm   { fill:#eaf2fd; stroke:#4a7fd0; stroke-width:2.2; rx:9 }
+    .det   { fill:#eaf7ef; stroke:#3f9c63; stroke-width:2.2; rx:9 }
+    .chk   { fill:#fdf3e8; stroke:#d98218; stroke-width:2.2; rx:9 }
+    .art   { fill:#f1ecfa; stroke:#7a5cc0; stroke-width:2.2; rx:9 }
+    .h     { font-size:17px; font-weight:700; fill:#1d2530 }
+    .t     { font-size:15px; font-weight:700; fill:#1d2530 }
+    .s     { font-size:13px; fill:#5b6472 }
+    .m     { font-size:12px; fill:#7b8593; font-style:italic }
+    .mono  { font:13px ui-monospace,SFMono-Regular,Menlo,monospace; fill:#1d2530 }
+    .flow  { stroke:#5b6472; stroke-width:2.4; fill:none; marker-end:url(#a) }
+    .flowG { stroke:#3f9c63; stroke-width:2.4; fill:none; marker-end:url(#aG) }
+    .feed  { stroke:#c0392b; stroke-width:1.7; fill:none; stroke-dasharray:7 5; marker-end:url(#aR); opacity:.9 }
+    .lblL  { font-size:14px; font-weight:700; fill:#2f6fc4 }
+    .lblG  { font-size:14px; font-weight:700; fill:#2e8b57 }
+    .lblR  { font-size:12.5px; font-weight:700; fill:#c0392b }
+    .onarrow { font-size:12px; fill:#5b6472 }
+  </style>
+
+  <text x="50" y="44" font-size="26" font-weight="700" fill="#1d2530">From process model to running automation</text>
+  <text x="50" y="70" font-size="14.5" fill="#5b6472">The model may say which cells to read. It is never allowed to say what to do about them.</text>
+
+  <!-- ===== inputs ===== -->
+  <rect class="det" x="50" y="150" width="240" height="112"/>
+  <text x="72" y="182" class="t">Keyword library</text>
+  <text x="72" y="204" class="mono">library.resource</text>
+  <text x="72" y="226" class="s">hand-written and tested</text>
+  <text x="72" y="248" class="m">the only actions that exist</text>
+
+  <rect class="art" x="50" y="336" width="240" height="122"/>
+  <text x="72" y="368" class="h">The IR</text>
+  <text x="72" y="392" class="s">entities · tasks · rules</text>
+  <text x="72" y="412" class="s">decisions · computations</text>
+  <text x="72" y="438" class="m">already complete and verified</text>
+
+  <!-- ===== LLM path ===== -->
+  <text x="690" y="116" class="lblL" text-anchor="middle">WHAT THE MODEL DECIDES — which cells to read, and in what order</text>
+
+  <rect class="llm" x="380" y="140" width="290" height="130"/>
+  <text x="402" y="172" class="h">One model call</text>
+  <text x="402" y="196" class="s">given the catalogue of allowed</text>
+  <text x="402" y="215" class="s">keywords, and the whole IR</text>
+  <text x="402" y="242" class="m">read keywords only — no write is</text>
+  <text x="402" y="259" class="m">ever offered to it</text>
+
+  <rect class="llm" x="720" y="140" width="300" height="130"/>
+  <text x="742" y="172" class="h">A list of steps</text>
+  <text x="742" y="196" class="s">which keyword, with which</text>
+  <text x="742" y="215" class="s">arguments, storing what</text>
+  <text x="742" y="242" class="m">one entry per task in the IR</text>
+
+  <!-- ===== deterministic path ===== -->
+  <rect class="det" x="380" y="440" width="640" height="118"/>
+  <text x="402" y="472" class="h">Rules, decisions and formulas</text>
+  <text x="402" y="496" class="s">every comparison, every branch, every value written back —</text>
+  <text x="402" y="516" class="s">taken straight from the IR</text>
+  <text x="402" y="542" class="m">the model is never shown these, and never writes one</text>
+  <text x="700" y="586" class="lblG" text-anchor="middle">WHAT CODE DECIDES — never the model</text>
+
+  <!-- ===== compiler ===== -->
+  <rect class="chk" x="1070" y="240" width="250" height="196"/>
+  <text x="1092" y="272" class="h">Compiler</text>
+  <text x="1092" y="298" class="s">drops the read steps into</text>
+  <text x="1092" y="317" class="s">the IF / ELSE the IR dictates,</text>
+  <text x="1092" y="336" class="s">then adds the writes</text>
+  <text x="1092" y="364" class="s">and notes where every</text>
+  <text x="1092" y="383" class="s">line came from</text>
+  <text x="1092" y="412" class="m">same input, same file, every time</text>
+
+  <!-- ===== output ===== -->
+  <rect class="box" x="1360" y="292" width="200" height="86"/>
+  <text x="1382" y="322" class="h">.robot</text>
+  <text x="1382" y="346" class="s">the runnable</text>
+  <text x="1382" y="365" class="s">automation</text>
+
+  <text x="1360" y="404" class="m">with a record of which part</text>
+  <text x="1360" y="421" class="m">of the IR produced each line</text>
+
+  <!-- ===== gate ===== -->
+  <rect class="chk" x="1070" y="640" width="490" height="96"/>
+  <text x="1092" y="672" class="h">Dry run</text>
+  <text x="1092" y="697" class="s">the script is parsed and every keyword resolved. Nothing</text>
+  <text x="1092" y="716" class="s">reaches a browser until this passes.</text>
+
+  <!-- ===== arrows ===== -->
+  <!-- Each arrow gets its own edge of the model-call box. Three heads
+       crowding one edge read as misalignment even when they land correctly. -->
+  <path d="M 290 206 L 374 206" class="flowG"/>
+  <path d="M 290 366 C 420 366, 480 362, 480 276" class="flow"/>
+  <path d="M 290 430 C 336 430, 344 495, 374 499" class="flowG"/>
+
+  <line x1="670" y1="205" x2="716" y2="205" class="flow"/>
+  <path d="M 1020 205 C 1046 205, 1046 288, 1066 292" class="flow"/>
+  <path d="M 1020 499 C 1046 499, 1046 392, 1066 388" class="flowG"/>
+
+  <line x1="1320" y1="335" x2="1356" y2="335" class="flow"/>
+
+  <path d="M 1460 440 L 1460 636" class="flow"/>
+
+  <path d="M 1070 688 L 330 688 L 330 248 L 374 248" class="feed"/>
+  <text x="620" y="680" class="lblR">the real parser error goes back — not "try again"</text>
+</svg>

@@ -1,0 +1,1229 @@
+{
+  "irVersion": "1.0.0",
+  "sourceDemonstrations": [
+    "recorded/missing-po.json",
+    "recorded/quantity-mismatch.json",
+    "recorded/price-within-tolerance.json",
+    "recorded/everything-correct.json",
+    "recorded/price-excess.json"
+  ],
+  "demonstrations": [
+    {
+      "prefix": "MISSING_PO",
+      "file": "recorded/missing-po.json"
+    },
+    {
+      "prefix": "QTY_MISMATCH",
+      "file": "recorded/quantity-mismatch.json"
+    },
+    {
+      "prefix": "PRICE_TOLERANCE",
+      "file": "recorded/price-within-tolerance.json"
+    },
+    {
+      "prefix": "EVERYTHING_CORRECT",
+      "file": "recorded/everything-correct.json"
+    },
+    {
+      "prefix": "PRICE_EXCESS",
+      "file": "recorded/price-excess.json"
+    }
+  ],
+  "process": {
+    "id": "PROC-INVOICE-REVIEW",
+    "type": "Process",
+    "intent": "Determine whether a blocked invoice can be released, checking purchase-order existence, quantity agreement, and price tolerance in that priority order",
+    "provenance": [
+      {
+        "sourceType": "STATED",
+        "sourceId": "MISSING_PO:NARRATION-1"
+      },
+      {
+        "sourceType": "STATED",
+        "sourceId": "QTY_MISMATCH:NARRATION-2"
+      },
+      {
+        "sourceType": "STATED",
+        "sourceId": "PRICE_TOLERANCE:NARRATION-3"
+      },
+      {
+        "sourceType": "STATED",
+        "sourceId": "EVERYTHING_CORRECT:NARRATION-5"
+      },
+      {
+        "sourceType": "STATED",
+        "sourceId": "PRICE_EXCESS:NARRATION-6"
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "cross-demonstration-outcome-analysis",
+        "inferredBy": "human-analyst",
+        "confidence": 0.9,
+        "rationale": "No single demonstration states an explicit priority order across all three checks. This sequence (PO existence, then quantity, then price) was inferred by checking it against all 6 recorded outcomes: it correctly predicts MANUAL_REVIEW, WAREHOUSE_REVIEW, PROCUREMENT_REVIEW, and RELEASED in every recorded case, including cases where the SME's own trace skipped a check entirely (e.g. price-excess never visits Goods Receipts, quantity-mismatch never visits Purchase Orders' price) -- read as the SME already knowing, from blockReason, which single check was relevant, not as evidence that only one check should ever run. See ir/README.md for the full reasoning and its stated limitation."
+      }
+    ]
+  },
+  "entities": [
+    {
+      "id": "ENTITY-INVOICE",
+      "type": "Entity",
+      "name": "Invoice",
+      "keyField": "invoiceId",
+      "fields": [
+        {
+          "name": "invoiceId",
+          "dataType": "string"
+        },
+        {
+          "name": "poNumber",
+          "dataType": "string"
+        },
+        {
+          "name": "blockReason",
+          "dataType": "string"
+        },
+        {
+          "name": "invoiceQty",
+          "dataType": "number"
+        },
+        {
+          "name": "unitPrice",
+          "dataType": "number"
+        },
+        {
+          "name": "status",
+          "dataType": "string"
+        },
+        {
+          "name": "resolution",
+          "dataType": "string"
+        }
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Invoices"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E001"
+        }
+      ]
+    },
+    {
+      "id": "ENTITY-PO",
+      "type": "Entity",
+      "name": "PurchaseOrder",
+      "keyField": "poNumber",
+      "fields": [
+        {
+          "name": "poNumber",
+          "dataType": "string"
+        },
+        {
+          "name": "orderedQty",
+          "dataType": "number"
+        },
+        {
+          "name": "unitPrice",
+          "dataType": "number"
+        }
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Purchase Orders"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E005"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E006"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        }
+      ]
+    },
+    {
+      "id": "ENTITY-GOODS-RECEIPT",
+      "type": "Entity",
+      "name": "GoodsReceipt",
+      "keyField": "poNumber",
+      "fields": [
+        {
+          "name": "poNumber",
+          "dataType": "string"
+        },
+        {
+          "name": "receivedQty",
+          "dataType": "number"
+        }
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Goods Receipts"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E022"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E058"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E059"
+        }
+      ]
+    },
+    {
+      "id": "ENTITY-RULE",
+      "type": "Entity",
+      "name": "ProcessingRule",
+      "keyField": "rule",
+      "fields": [
+        {
+          "name": "rule",
+          "dataType": "string"
+        },
+        {
+          "name": "value",
+          "dataType": "string"
+        }
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Processing Rules"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E026"
+        }
+      ]
+    }
+  ],
+  "entityReferences": [
+    {
+      "id": "ENTREF-INVOICE-TO-PO",
+      "type": "EntityReference",
+      "fromEntity": "ENTITY-INVOICE",
+      "fromField": "poNumber",
+      "toEntity": "ENTITY-PO",
+      "toField": "poNumber",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E005"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E006"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E018"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E019"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E020"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        }
+      ]
+    },
+    {
+      "id": "ENTREF-INVOICE-TO-GOODS-RECEIPT",
+      "type": "EntityReference",
+      "fromEntity": "ENTITY-INVOICE",
+      "fromField": "poNumber",
+      "toEntity": "ENTITY-GOODS-RECEIPT",
+      "toField": "poNumber",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E022"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E058"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E059"
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "id": "VAR-INVOICE-ID",
+      "type": "Variable",
+      "name": "invoiceId",
+      "dataType": "string",
+      "producedBy": "PROCESS_INPUT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E001"
+        }
+      ]
+    },
+    {
+      "id": "VAR-BLOCK-REASON",
+      "type": "Variable",
+      "name": "blockReason",
+      "dataType": "string",
+      "producedBy": "TASK-01",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E020"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E050"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E002"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PO-NUMBER",
+      "type": "Variable",
+      "name": "poNumber",
+      "dataType": "string",
+      "producedBy": "TASK-01",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E018"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E021"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E053"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E003"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PO-EXISTS",
+      "type": "Variable",
+      "name": "purchaseOrderExists",
+      "dataType": "boolean",
+      "producedBy": "TASK-02",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "MISSING_PO:NARRATION-1"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E005"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E006"
+        }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-QTY",
+      "type": "Variable",
+      "name": "invoiceQuantity",
+      "dataType": "number",
+      "producedBy": "TASK-03",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E051"
+        }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-PRICE",
+      "type": "Variable",
+      "name": "invoicePrice",
+      "dataType": "number",
+      "producedBy": "TASK-03",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E052"
+        },
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "PRICE_TOLERANCE:E020",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.6,
+          "rationale": "The price-within-tolerance demonstration (recorded/price-within-tolerance.json) never has a discrete READ_CELL event for the invoice's own Unit Price -- the SME goes straight from Block Reason/PO Number to the PO's price. Since the same row was already open and visible (E020/E021 read other fields from it), the invoice price was very likely seen, just not logged as a separate click. This task/variable is still declared because two OTHER demonstrations (price-excess, everything-correct) directly observe this exact read, confirming it as a real step of the process, not an invention."
+        }
+      ]
+    },
+    {
+      "id": "VAR-PO-ORDERED-QTY",
+      "type": "Variable",
+      "name": "purchaseOrderOrderedQty",
+      "dataType": "number",
+      "producedBy": "TASK-04",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E021"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E056"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PO-PRICE",
+      "type": "Variable",
+      "name": "purchaseOrderUnitPrice",
+      "dataType": "number",
+      "producedBy": "TASK-04",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E057"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E024"
+        }
+      ]
+    },
+    {
+      "id": "VAR-RECEIVED-QTY",
+      "type": "Variable",
+      "name": "receivedQuantity",
+      "dataType": "number",
+      "producedBy": "TASK-05",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E060"
+        }
+      ]
+    },
+    {
+      "id": "VAR-MAX-VARIANCE-PCT",
+      "type": "Variable",
+      "name": "maxPriceVariancePercent",
+      "dataType": "number",
+      "producedBy": "TASK-06",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E028"
+        }
+      ]
+    },
+    {
+      "id": "VAR-MAX-ABS-DIFFERENCE",
+      "type": "Variable",
+      "name": "maxAbsolutePriceDifference",
+      "dataType": "number",
+      "producedBy": "TASK-06",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E012"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PRICE-VARIANCE-PCT",
+      "type": "Variable",
+      "name": "priceVariancePercent",
+      "dataType": "number",
+      "producedBy": "COMP-PRICE-VARIANCE-PCT",
+      "provenance": [
+        {
+          "sourceType": "GENERATED",
+          "sourceId": "IR:COMP-PRICE-VARIANCE-PCT"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PRICE-ABS-DIFFERENCE",
+      "type": "Variable",
+      "name": "priceAbsoluteDifference",
+      "dataType": "number",
+      "producedBy": "COMP-PRICE-ABS-DIFFERENCE",
+      "provenance": [
+        {
+          "sourceType": "GENERATED",
+          "sourceId": "IR:COMP-PRICE-ABS-DIFFERENCE"
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK-01",
+      "type": "BusinessTask",
+      "intent": "Locate the invoice under review and read its block reason and PO number",
+      "entity": "ENTITY-INVOICE",
+      "inputs": [
+        "VAR-INVOICE-ID"
+      ],
+      "outputs": [
+        "VAR-BLOCK-REASON",
+        "VAR-PO-NUMBER"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "SELECT_SHEET",
+          "sheet": "Invoices"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Invoices"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Invoices",
+          "field": "blockReason"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Invoices",
+          "field": "poNumber"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E003"
+        }
+      ]
+    },
+    {
+      "id": "TASK-02",
+      "type": "BusinessTask",
+      "intent": "Check whether a matching purchase order exists",
+      "entity": "ENTITY-PO",
+      "inputs": [
+        "VAR-PO-NUMBER"
+      ],
+      "outputs": [
+        "VAR-PO-EXISTS"
+      ],
+      "dependsOn": [
+        "TASK-01"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "SELECT_SHEET",
+          "sheet": "Purchase Orders"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "CHECK_EXISTS",
+          "sheet": "Purchase Orders"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "MISSING_PO:NARRATION-1"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E005"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E006"
+        }
+      ]
+    },
+    {
+      "id": "TASK-03",
+      "type": "BusinessTask",
+      "intent": "Read the invoice's own quantity and unit price",
+      "entity": "ENTITY-INVOICE",
+      "inputs": [
+        "VAR-INVOICE-ID"
+      ],
+      "outputs": [
+        "VAR-INVOICE-QTY",
+        "VAR-INVOICE-PRICE"
+      ],
+      "dependsOn": [
+        "TASK-02"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Invoices",
+          "field": "invoiceQty"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Invoices",
+          "field": "unitPrice"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E051"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E052"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E003"
+        }
+      ]
+    },
+    {
+      "id": "TASK-04",
+      "type": "BusinessTask",
+      "intent": "Retrieve the purchase order's ordered quantity and agreed unit price",
+      "entity": "ENTITY-PO",
+      "inputs": [
+        "VAR-PO-NUMBER"
+      ],
+      "outputs": [
+        "VAR-PO-ORDERED-QTY",
+        "VAR-PO-PRICE"
+      ],
+      "dependsOn": [
+        "TASK-02"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Purchase Orders",
+          "field": "orderedQty"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Purchase Orders",
+          "field": "unitPrice"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E021"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E056"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E057"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E024"
+        }
+      ]
+    },
+    {
+      "id": "TASK-05",
+      "type": "BusinessTask",
+      "intent": "Retrieve the quantity actually received against the purchase order",
+      "entity": "ENTITY-GOODS-RECEIPT",
+      "inputs": [
+        "VAR-PO-NUMBER"
+      ],
+      "outputs": [
+        "VAR-RECEIVED-QTY"
+      ],
+      "dependsOn": [
+        "TASK-02"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "SELECT_SHEET",
+          "sheet": "Goods Receipts"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Goods Receipts"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Goods Receipts",
+          "field": "receivedQty"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E022"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E058"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E059"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E060"
+        }
+      ]
+    },
+    {
+      "id": "TASK-06",
+      "type": "BusinessTask",
+      "intent": "Retrieve the price-tolerance thresholds from Processing Rules",
+      "entity": "ENTITY-RULE",
+      "inputs": [],
+      "outputs": [
+        "VAR-MAX-VARIANCE-PCT",
+        "VAR-MAX-ABS-DIFFERENCE"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "SELECT_SHEET",
+          "sheet": "Processing Rules"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Processing Rules"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Processing Rules",
+          "field": "value"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "EVERYTHING_CORRECT:E063",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.7,
+          "rationale": "The everything-correct demonstration never visits the Processing Rules sheet at all, because the invoice and PO numbers already match exactly (0 variance), making a threshold lookup unnecessary for the SME to reach a decision by inspection. This task is still declared as part of the process (grounded in the other two price-related demonstrations) since a robust automation should not skip the live threshold read just because a particular case happens to be a trivial match."
+        }
+      ]
+    }
+  ],
+  "computations": [
+    {
+      "id": "COMP-PRICE-VARIANCE-PCT",
+      "type": "Computation",
+      "function": "ABS_PERCENT_DIFFERENCE",
+      "inputs": [
+        "VAR-INVOICE-PRICE",
+        "VAR-PO-PRICE"
+      ],
+      "output": "VAR-PRICE-VARIANCE-PCT",
+      "provenance": [
+        {
+          "sourceType": "STATED",
+          "sourceId": "PRICE_TOLERANCE:NARRATION-3"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "PRICE_EXCESS:NARRATION-6"
+        }
+      ]
+    },
+    {
+      "id": "COMP-PRICE-ABS-DIFFERENCE",
+      "type": "Computation",
+      "function": "ABS_DIFFERENCE",
+      "inputs": [
+        "VAR-INVOICE-PRICE",
+        "VAR-PO-PRICE"
+      ],
+      "output": "VAR-PRICE-ABS-DIFFERENCE",
+      "provenance": [
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "PRICE_EXCESS:E011",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.5,
+          "rationale": "Declared because the price-excess demonstration explicitly reads a 'Maximum Absolute Difference' rule (E011/E012), proving this comparison is a real part of the business process. However, this computation's output is NOT referenced by any Decision below: every observed outcome across all 6 demonstrations is already fully explained by the percentage-variance rule alone (see RULE-PRICE-ABS-DIFFERENCE's provenance for the detailed check). Kept declared, not wired in, pending SME clarification on how the two thresholds should combine (e.g. release requires passing both, or either)."
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "RULE-PO-EXISTS",
+      "type": "BusinessRule",
+      "name": "Purchase Order Must Exist",
+      "condition": {
+        "operator": "==",
+        "left": {
+          "ref": "VAR-PO-EXISTS"
+        },
+        "right": {
+          "value": false
+        }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "MISSING_PO:NARRATION-1"
+        }
+      ]
+    },
+    {
+      "id": "RULE-QUANTITY-REQUIREMENT",
+      "type": "BusinessRule",
+      "name": "Quantity Requirement",
+      "condition": {
+        "operator": "<=",
+        "left": {
+          "ref": "VAR-INVOICE-QTY"
+        },
+        "right": {
+          "ref": "VAR-RECEIVED-QTY"
+        }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E027"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "QTY_MISMATCH:NARRATION-2"
+        }
+      ]
+    },
+    {
+      "id": "RULE-PRICE-VARIANCE-PCT",
+      "type": "BusinessRule",
+      "name": "Maximum Price Variance",
+      "condition": {
+        "operator": "<=",
+        "left": {
+          "ref": "VAR-PRICE-VARIANCE-PCT"
+        },
+        "right": {
+          "ref": "VAR-MAX-VARIANCE-PCT"
+        }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E010"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "PRICE_TOLERANCE:NARRATION-3"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "PRICE_EXCESS:NARRATION-6"
+        },
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "cross-demonstration-outcome-analysis",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.85,
+          "rationale": "The operator (<=) and direction were checked against both price-related outcomes: price-within-tolerance has a 1.5% variance (101.5 vs 100) and releases -- consistent with <= 2%; price-excess has a 10% variance (110 vs 100) and is blocked -- consistent with > 2%. Both observed outcomes agree with this single operator, which is what makes this inference high-confidence rather than a guess."
+        }
+      ]
+    },
+    {
+      "id": "RULE-PRICE-ABS-DIFFERENCE",
+      "type": "BusinessRule",
+      "name": "Maximum Absolute Difference",
+      "condition": {
+        "operator": "<=",
+        "left": {
+          "ref": "VAR-PRICE-ABS-DIFFERENCE"
+        },
+        "right": {
+          "ref": "VAR-MAX-ABS-DIFFERENCE"
+        }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E012"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-01-PO-EXISTENCE",
+      "type": "Decision",
+      "intent": "Flag for manual review when no matching purchase order can be found",
+      "outcomes": [
+        {
+          "condition": {
+            "ref": "RULE-PO-EXISTS",
+            "equals": true
+          },
+          "result": "MANUAL_REVIEW",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "MANUAL_REVIEW"
+          }
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E010"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "MISSING_PO:NARRATION-1"
+        }
+      ],
+      "priorityOrder": [
+        "RULE-PO-EXISTS",
+        "RULE-QUANTITY-REQUIREMENT",
+        "RULE-PRICE-VARIANCE-PCT"
+      ],
+      "defaultOutcome": "MANUAL_REVIEW",
+      "evaluationOrder": "FIRST_MATCH"
+    },
+    {
+      "id": "DEC-02-QUANTITY",
+      "type": "Decision",
+      "intent": "Flag for warehouse review when invoice quantity exceeds what was actually received",
+      "outcomes": [
+        {
+          "condition": {
+            "ref": "RULE-QUANTITY-REQUIREMENT",
+            "equals": false
+          },
+          "result": "WAREHOUSE_REVIEW",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "WAREHOUSE_REVIEW"
+          }
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QTY_MISMATCH:E031"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "QTY_MISMATCH:NARRATION-2"
+        }
+      ]
+    },
+    {
+      "id": "DEC-03-PRICE",
+      "type": "Decision",
+      "intent": "Release the invoice if price is within tolerance of the purchase order, otherwise flag for procurement review",
+      "outcomes": [
+        {
+          "condition": {
+            "ref": "RULE-PRICE-VARIANCE-PCT",
+            "equals": true
+          },
+          "result": "RELEASED",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "RELEASED"
+          }
+        },
+        {
+          "condition": {
+            "ref": "RULE-PRICE-VARIANCE-PCT",
+            "equals": false
+          },
+          "result": "PROCUREMENT_REVIEW",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "PROCUREMENT_REVIEW"
+          }
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_TOLERANCE:E031"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E063"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "PRICE_TOLERANCE:NARRATION-3"
+        },
+        {
+          "sourceType": "STATED",
+          "sourceId": "PRICE_EXCESS:NARRATION-6"
+        }
+      ]
+    }
+  ]
+}

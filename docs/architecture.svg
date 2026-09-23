@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <rect width="1600" height="900" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5b6472"/>
+    </marker>
+    <marker id="aL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f6fc4"/>
+    </marker>
+  </defs>
+
+  <style>
+    .band   { fill:#f7f8fa; stroke:#dde1e7; stroke-width:1.5; rx:12; }
+    .blabel { font-size:16px; font-weight:700; fill:#2f3b4a; letter-spacing:.5px; }
+    .bsub   { font-size:12.5px; fill:#6b7480; }
+    .bnum   { font-size:13px; font-weight:700; fill:#ffffff; }
+    .box    { fill:#ffffff; stroke:#9aa5b4; stroke-width:1.6; rx:8; }
+    .llm    { fill:#eaf2fd; stroke:#4a7fd0; stroke-width:2; rx:8; }
+    .det    { fill:#eaf7ef; stroke:#3f9c63; stroke-width:2; rx:8; }
+    .chk    { fill:#fdf3e8; stroke:#d98218; stroke-width:2; rx:8; }
+    .art    { fill:#f1ecfa; stroke:#7a5cc0; stroke-width:2.4; rx:8; }
+    .h      { font-size:15.5px; font-weight:700; fill:#1d2530; }
+    .t      { font-size:14px; font-weight:700; fill:#1d2530; }
+    .s      { font-size:12px; fill:#5b6472; }
+    .foot   { font-size:12px; fill:#6b7480; font-style:italic; }
+    .flow   { stroke:#5b6472; stroke-width:2.2; fill:none; marker-end:url(#a); }
+    .loop   { stroke:#2f6fc4; stroke-width:2.2; fill:none; marker-end:url(#aL); }
+    .loopt  { font-size:12px; fill:#2f6fc4; font-weight:700; }
+    .pathL  { font-size:12.5px; fill:#2f6fc4; font-weight:700; }
+    .pathD  { font-size:12.5px; fill:#2e8b57; font-weight:700; }
+  </style>
+
+  <text x="40" y="40" font-size="25" font-weight="700" fill="#1d2530">From Human Process Evidence to Executable Robot Automation</text>
+  <g transform="translate(1160,20)">
+    <rect x="0" y="0" width="400" height="30" rx="6" fill="#ffffff" stroke="#dde1e7"/>
+    <rect x="14" y="8" width="13" height="13" class="llm"/> <text x="34" y="19" class="s">LLM</text>
+    <rect x="84" y="8" width="13" height="13" class="det"/> <text x="104" y="19" class="s">Code</text>
+    <rect x="156" y="8" width="13" height="13" class="chk"/><text x="176" y="19" class="s">Check</text>
+    <rect x="236" y="8" width="13" height="13" class="art"/><text x="256" y="19" class="s">Process model</text>
+  </g>
+
+  <!-- ===== 0 · EVIDENCE ===== -->
+  <rect class="band" x="40" y="62" width="1520" height="86"/>
+  <circle cx="68" cy="90" r="12" fill="#2f3b4a"/><text x="64" y="95" class="bnum">0</text>
+  <text x="90" y="95" class="blabel">EVIDENCE</text>
+
+  <rect class="box" x="360" y="76" width="420" height="58"/>
+  <text x="382" y="101" class="t">An expert works, and talks</text>
+  <text x="382" y="121" class="s">in an instrumented spreadsheet app</text>
+
+  <rect class="art" x="860" y="76" width="460" height="58"/>
+  <text x="882" y="101" class="t">Recorded demonstrations</text>
+  <text x="882" y="121" class="s">what they said  +  every click and cell</text>
+
+  <line x1="786" y1="105" x2="852" y2="105" class="flow"/>
+
+  <!-- ===== 1 · IR GENERATION ===== -->
+  <rect class="band" x="40" y="164" width="1520" height="234"/>
+  <circle cx="68" cy="192" r="12" fill="#2f3b4a"/><text x="64" y="197" class="bnum">1</text>
+  <text x="90" y="197" class="blabel">IR GENERATION</text>
+  <text x="240" y="197" class="bsub">nothing about the business is given in advance</text>
+
+  <rect class="llm" x="80" y="210" width="460" height="82"/>
+  <text x="102" y="238" class="h">1 · Hypothesis</text>
+  <text x="102" y="261" class="s">Read only what the expert SAID.</text>
+  <text x="102" y="280" class="s">What does this process seem to be?</text>
+
+  <rect class="llm" x="570" y="210" width="460" height="82"/>
+  <text x="592" y="238" class="h">2 · Seed</text>
+  <text x="592" y="261" class="s">Add a few full recordings.</text>
+  <text x="592" y="280" class="s">Draft the process model.</text>
+
+  <rect class="llm" x="1060" y="210" width="460" height="82"/>
+  <text x="1082" y="238" class="h">3 · Extend</text>
+  <text x="1082" y="261" class="s">Add the next batch of recordings.</text>
+  <text x="1082" y="280" class="s">Repeat until none are left.</text>
+
+  <line x1="540" y1="251" x2="566" y2="251" class="flow"/>
+  <line x1="1030" y1="251" x2="1056" y2="251" class="flow"/>
+  <path d="M 1490 210 L 1490 186 L 1110 186 L 1110 206" class="loop"/>
+  <text x="1150" y="181" class="loopt">repeat with the next batch</text>
+
+  <rect class="chk" x="80" y="306" width="460" height="74"/>
+  <text x="102" y="332" class="t">Grounded</text>
+  <text x="102" y="353" class="s">every claim points at a real moment</text>
+  <text x="102" y="371" class="s">in a real recording</text>
+
+  <rect class="chk" x="570" y="306" width="460" height="74"/>
+  <text x="592" y="332" class="t">Coherent</text>
+  <text x="592" y="353" class="s">no comparing a price with a percentage;</text>
+  <text x="592" y="371" class="s">limits are read, not invented</text>
+
+  <rect class="chk" x="1060" y="306" width="460" height="74"/>
+  <text x="1082" y="332" class="t">Correct</text>
+  <text x="1082" y="353" class="s">running the rules reproduces what</text>
+  <text x="1082" y="371" class="s">the expert actually decided</text>
+
+  <!-- ===== PROCESS MODEL ===== -->
+  <line x1="800" y1="398" x2="800" y2="414" class="flow"/>
+  <rect class="art" x="300" y="418" width="1000" height="54"/>
+  <text x="326" y="443" class="h">PROCESS MODEL  (the IR)</text>
+  <text x="326" y="462" class="s">what the business does — entities, tasks, rules, decisions — never which button was clicked</text>
+  <line x1="800" y1="472" x2="800" y2="490" class="flow"/>
+
+  <!-- ===== 2 · IR TO ROBOTIC PROCESS AUTOMATION ===== -->
+  <rect class="band" x="40" y="494" width="1520" height="212"/>
+  <circle cx="68" cy="522" r="12" fill="#2f3b4a"/><text x="64" y="527" class="bnum">2</text>
+  <text x="90" y="527" class="blabel">IR TO ROBOTIC PROCESS AUTOMATION</text>
+
+  <rect class="box" x="72" y="586" width="156" height="76"/>
+  <text x="90" y="612" class="t">IR</text>
+  <text x="90" y="631" class="s">entities, tasks, rules,</text>
+  <text x="90" y="648" class="s">decisions — complete</text>
+
+  <text x="580" y="551" class="pathL" text-anchor="middle">LLM-composed path</text>
+  <rect class="llm" x="290" y="558" width="250" height="62"/>
+  <text x="310" y="582" class="t">LLM call  (once)</text>
+  <text x="310" y="600" class="s">fixed keyword catalogue</text>
+  <text x="310" y="615" class="s">+ the full IR</text>
+
+  <rect class="llm" x="580" y="558" width="290" height="62"/>
+  <text x="600" y="582" class="t">Step list</text>
+  <text x="600" y="600" class="s">keyword + args + assignTo,</text>
+  <text x="600" y="615" class="s">one entry per task</text>
+
+  <rect class="det" x="290" y="634" width="580" height="56"/>
+  <text x="310" y="657" class="t">Rules, decisions, computations</text>
+  <text x="310" y="676" class="s">structured conditions and writes — never touched by the LLM</text>
+  <text x="580" y="702" class="pathD" text-anchor="middle">deterministic path (never LLM)</text>
+
+  <rect class="chk" x="920" y="580" width="300" height="88"/>
+  <text x="942" y="606" class="t">Deterministic compiler</text>
+  <text x="942" y="627" class="s">merges both: LLM lines become reads,</text>
+  <text x="942" y="645" class="s">IR logic becomes IF / ELSE,</text>
+  <text x="942" y="662" class="s">writes and formulas</text>
+
+  <rect class="box" x="1270" y="596" width="250" height="56"/>
+  <text x="1292" y="620" class="t">.robot script</text>
+  <text x="1292" y="639" class="s">ready for the dry run</text>
+
+  <path d="M 228 612 C 258 612, 258 589, 286 589" class="flow"/>
+  <path d="M 228 636 C 258 636, 258 660, 286 660" class="flow"/>
+  <line x1="540" y1="589" x2="576" y2="589" class="flow"/>
+  <path d="M 870 589 C 895 589, 895 612, 916 612" class="flow"/>
+  <path d="M 870 660 C 895 660, 895 636, 916 636" class="flow"/>
+  <line x1="1220" y1="624" x2="1266" y2="624" class="flow"/>
+
+  <!-- ===== 3 · EVALUATION ===== -->
+  <line x1="800" y1="706" x2="800" y2="722" class="flow"/>
+  <rect class="band" x="40" y="726" width="1520" height="150"/>
+  <circle cx="68" cy="754" r="12" fill="#2f3b4a"/><text x="64" y="759" class="bnum">3</text>
+  <text x="90" y="759" class="blabel">EVALUATION</text>
+  <text x="235" y="759" class="bsub">turns the run into a number a manager can trust</text>
+
+  <rect class="chk" x="80" y="772" width="460" height="74"/>
+  <text x="102" y="798" class="t">Score the IR</text>
+  <text x="102" y="819" class="s">candidate vs. golden by meaning — entities,</text>
+  <text x="102" y="837" class="s">tasks, data flow, rules, decisions</text>
+
+  <rect class="chk" x="570" y="772" width="460" height="74"/>
+  <text x="592" y="798" class="t">Verify grounding</text>
+  <text x="592" y="819" class="s">every cited event / narration ID resolves in</text>
+  <text x="592" y="837" class="s">the evidence; rule edges (&lt; vs ≤) hold</text>
+
+  <rect class="chk" x="1060" y="772" width="460" height="74"/>
+  <text x="1082" y="798" class="t">Compare the outcome</text>
+  <text x="1082" y="819" class="s">expected decision vs. what execution</text>
+  <text x="1082" y="837" class="s">actually produced</text>
+
+  <text x="800" y="866" class="foot" text-anchor="middle">strict mode fails the whole run if any one of the three misses its bar — that gate is the 100% you report</text>
+</svg>

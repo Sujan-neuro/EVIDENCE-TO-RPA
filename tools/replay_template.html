@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Evidence to IR — replay</title>
+<style>
+  :root{
+    --ink:#1d2530; --mute:#5b6472; --faint:#8a93a0; --line:#dde1e7; --bg:#ffffff;
+    --panel:#f7f8fa; --llm:#4a7fd0; --llmbg:#eaf2fd; --ok:#3f9c63; --okbg:#eaf7ef;
+    --warn:#d98218; --warnbg:#fdf3e8; --bad:#c0392b; --badbg:#fdeceb;
+    --art:#7a5cc0; --artbg:#f1ecfa;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font:15px/1.5 "Segoe UI",Helvetica Neue,Arial,sans-serif;color:var(--ink);
+       background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+
+  header{padding:14px 24px 0;border-bottom:1px solid var(--line)}
+  h1{margin:0;font-size:19px;letter-spacing:.2px}
+  h1 span{color:var(--faint);font-weight:400;font-size:14px;margin-left:10px}
+
+  .steps{display:flex;gap:6px;margin:12px 0 0;padding:0;list-style:none}
+  .steps li{padding:7px 14px;border:1px solid var(--line);border-bottom:none;
+            border-radius:8px 8px 0 0;background:var(--panel);color:var(--mute);
+            font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .steps li.on{background:var(--bg);color:var(--ink);border-color:var(--llm);
+               box-shadow:inset 0 3px 0 var(--llm)}
+
+  main{flex:1;display:grid;grid-template-columns:1fr 1.05fr 1fr;gap:1px;
+       background:var(--line);min-height:0}
+  section{background:var(--bg);display:flex;flex-direction:column;min-height:0}
+  .head{padding:12px 18px 10px;border-bottom:1px solid var(--line)}
+  .head h2{margin:0;font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint)}
+  .head p{margin:4px 0 0;font-size:13px;color:var(--mute)}
+  .body{overflow:auto;padding:14px 18px 28px;flex:1}
+
+  .rec{margin-bottom:14px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .rec.dim{opacity:.35}
+  .rec > .t{padding:8px 12px;background:var(--panel);font-weight:700;font-size:13px;
+            display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+  .rec .verdict{font-size:11px;font-weight:700;color:var(--art);
+                background:var(--artbg);padding:2px 8px;border-radius:99px}
+  .rec .narr{padding:8px 12px;font-size:12.5px;color:var(--mute);font-style:italic;
+             border-bottom:1px solid var(--line)}
+  .ev{display:grid;grid-template-columns:46px 62px 1fr;gap:8px;padding:4px 12px;
+      font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;border-top:1px solid #f0f2f5}
+  .ev .id{color:var(--faint)}
+  .ev .act{color:var(--llm);font-weight:700}
+  .ev.hit{background:#fff6e2;box-shadow:inset 3px 0 0 var(--warn)}
+  .ev.hit .id{color:var(--warn);font-weight:700}
+
+  .att{border:1px solid var(--line);border-radius:8px;margin-bottom:10px;overflow:hidden}
+  .att .t{padding:8px 12px;font-size:13px;font-weight:700;display:flex;
+          justify-content:space-between;align-items:center}
+  .att.bad .t{background:var(--badbg);color:var(--bad)}
+  .att.good .t{background:var(--okbg);color:var(--ok)}
+  .att .err{padding:8px 12px;border-top:1px solid var(--line);font-size:12.5px}
+  .att .err .loc{font:11.5px ui-monospace,Menlo,monospace;color:var(--bad);font-weight:700}
+  .att .err .msg{color:var(--mute);margin-top:2px}
+
+  .node{border:1px solid var(--line);border-radius:7px;padding:7px 10px;margin-bottom:6px;
+        cursor:pointer;transition:background .12s,border-color .12s}
+  .node:hover{border-color:var(--llm);background:var(--llmbg)}
+  .node.on{border-color:var(--warn);background:var(--warnbg)}
+  .node .k{font:10.5px ui-monospace,Menlo,monospace;color:var(--faint);
+           text-transform:uppercase;letter-spacing:.4px}
+  .node .l{font-weight:700;font-size:13.5px}
+  .node .d{font-size:12.5px;color:var(--mute)}
+  .grp{margin:14px 0 6px;font-size:11.5px;letter-spacing:.6px;text-transform:uppercase;
+       color:var(--faint);font-weight:700}
+
+  .hyp{border:1px solid var(--llm);background:var(--llmbg);border-radius:8px;
+       padding:10px 12px;margin-bottom:8px}
+  .hyp .l{font-weight:700;font-size:13.5px}
+  .hyp .d{font-size:12.5px;color:var(--mute)}
+  .unc{border-left:3px solid var(--warn);background:var(--warnbg);padding:7px 10px;
+       margin-bottom:6px;font-size:12.5px;border-radius:0 6px 6px 0}
+
+  .rep{display:flex;gap:10px;align-items:center;padding:7px 10px;border:1px solid var(--line);
+       border-radius:7px;margin-bottom:6px;font-size:13px}
+  .rep .m{font-weight:700;font-size:11px;padding:2px 8px;border-radius:99px}
+  .rep.ok .m{background:var(--okbg);color:var(--ok)}
+  .rep.no .m{background:var(--badbg);color:var(--bad)}
+  .rep .s{color:var(--faint);font:11.5px ui-monospace,Menlo,monospace}
+
+  footer{border-top:1px solid var(--line);padding:9px 24px;display:flex;
+         justify-content:space-between;align-items:center;font-size:12.5px;color:var(--mute)}
+  kbd{font:11px ui-monospace,Menlo,monospace;background:var(--panel);border:1px solid var(--line);
+      border-bottom-width:2px;border-radius:4px;padding:1px 6px;color:var(--ink)}
+  .hint{color:var(--faint)}
+  .big{font-size:14px;font-weight:700;color:var(--ink)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Evidence → IR<span id="runid"></span></h1>
+  <ul class="steps" id="steps"></ul>
+</header>
+
+<main>
+  <section>
+    <div class="head">
+      <h2>The recordings</h2>
+      <p id="leftsub">what the expert did</p>
+    </div>
+    <div class="body" id="left"></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2 id="midttl">The pass</h2>
+      <p id="midsub"></p>
+    </div>
+    <div class="body" id="mid"></div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2 id="rightttl">The model so far</h2>
+      <p id="rightsub"></p>
+    </div>
+    <div class="body" id="right"></div>
+  </section>
+</main>
+
+<footer>
+  <div><kbd>←</kbd> <kbd>→</kbd> step &nbsp;·&nbsp; <kbd>Esc</kbd> clear selection</div>
+  <div class="hint" id="hint">click anything on the right to see the moments that justify it</div>
+</footer>
+
+<script>
+const DATA = /*__DATA__*/null;
+let step = 0, selected = null;
+
+const $ = id => document.getElementById(id);
+// The capture vocabulary, shortened to fit a column without wrapping.
+const ACT = {READ_CELL:"READ", WRITE_CELL:"WRITE", SELECT_SHEET:"SHEET", SEARCH:"SEARCH"};
+const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+function render() {
+  const s = DATA.steps[step];
+  $("runid").textContent = DATA.runId;
+
+  $("steps").innerHTML = DATA.steps.map((x, i) =>
+    `<li class="${i === step ? "on" : ""}" data-i="${i}">${esc(x.title)}</li>`).join("")
+    + `<li class="${step === DATA.steps.length ? "on" : ""}" data-i="${DATA.steps.length}">Replay oracle</li>`;
+
+  if (step === DATA.steps.length) { renderOracle(); return; }
+
+  // --- middle: what this pass was given, and how it went ------------------
+  $("midttl").textContent = s.title;
+  $("midsub").textContent = "given: " + s.given;
+  $("mid").innerHTML = s.attempts.map(a => `
+    <div class="att ${a.accepted ? "good" : "bad"}">
+      <div class="t"><span>Attempt ${a.n}</span>
+        <span>${a.accepted ? "accepted" : a.errors.length + " problem" + (a.errors.length === 1 ? "" : "s")}</span>
+      </div>
+      ${a.errors.map(e => `<div class="err"><div class="loc">${esc(e.loc)}</div>
+        <div class="msg">${esc(e.msg)}</div></div>`).join("")}
+    </div>`).join("");
+
+  // --- right: the model as it stands after this pass -----------------------
+  if (s.hypothesis) {
+    const h = s.hypothesis;
+    $("rightttl").textContent = "What the narrations suggest";
+    $("rightsub").textContent = "nothing here is checked against the events yet";
+    $("right").innerHTML =
+      grp("Entities it thinks exist") +
+      h.entities.map(e => hyp(e.name, e.why)).join("") +
+      grp("Outcomes") + h.outcomes.map(o => hyp(o.name, o.when)).join("") +
+      grp("Rules it heard described") + (h.rules || []).map(r =>
+        hyp(r.name, r.statement + (r.threshold_hint ? ` (${r.threshold_hint})` : ""))).join("") +
+      grp("What the narrations do NOT settle") +
+      (h.uncertainties || []).map(u => `<div class="unc">${esc(u)}</div>`).join("");
+  } else {
+    $("rightttl").textContent = "The process model so far";
+    $("rightsub").textContent = s.nodes.length + " claims, each citing recorded moments";
+    const order = ["entity", "field", "derivation", "rule", "outcome", "task"];
+    const names = {entity:"Entities", field:"Fields", derivation:"Derived quantities",
+                   rule:"Rules", outcome:"Outcomes", task:"Tasks"};
+    $("right").innerHTML = order.map(k => {
+      const ns = s.nodes.filter(n => n.kind === k);
+      return ns.length ? grp(names[k]) + ns.map(n => `
+        <div class="node ${selected === n.id ? "on" : ""}" data-node="${esc(n.id)}">
+          <div class="k">${esc(n.kind)}</div>
+          <div class="l">${esc(n.label)}</div>
+          <div class="d">${esc(n.detail)}</div>
+        </div>`).join("") : "";
+    }).join("");
+  }
+
+  renderLeft(s);
+}
+
+const grp = t => `<div class="grp">${esc(t)}</div>`;
+const hyp = (l, d) => `<div class="hyp"><div class="l">${esc(l)}</div><div class="d">${esc(d)}</div></div>`;
+
+function renderLeft(s) {
+  const node = selected ? s.nodes.find(n => n.id === selected) : null;
+  const refs = new Set(node ? node.refs : []);
+  const live = new Set([...refs].map(r => r.split(":")[0]));
+
+  $("leftsub").textContent = node
+    ? `the moments that justify ${node.label}`
+    : (s.name === "hypothesis" ? "the model has not seen any of this yet" : "what the expert did");
+
+  $("left").innerHTML = DATA.recordings.map(r => {
+    const dim = node && !live.has(r.slug);
+    return `<div class="rec ${dim ? "dim" : ""}">
+      <div class="t"><span>${esc(r.slug)}</span>
+        ${r.outcome ? `<span class="verdict">${esc(r.outcome)}</span>` : ""}</div>
+      <div class="narr">${esc(r.narration)}</div>
+      ${r.events.map(e => {
+        const id = r.slug + ":" + e.eventId;
+        return `<div class="ev ${refs.has(id) ? "hit" : ""}">
+          <span class="id">${esc(e.eventId)}</span>
+          <span class="act">${esc(ACT[e.action] || e.action)}</span>
+          <span>${esc([e.sheet, e.column, e.value].filter(v => v !== undefined && v !== null && v !== "").join(" · "))}</span>
+        </div>`;
+      }).join("")}
+    </div>`;
+  }).join("");
+
+  // Bring the first justifying moment into view. On camera, hunting for a
+  // highlighted row in a scrolled panel is dead air.
+  const first = $("left").querySelector(".ev.hit");
+  if (first) first.scrollIntoView({block: "center", behavior: "smooth"});
+}
+
+function renderOracle() {
+  $("midttl").textContent = "Replay oracle";
+  $("midsub").textContent = "run the rules against each recording; compare to what the expert wrote";
+  const rows = DATA.replay || [];
+  const ok = rows.filter(r => r.passed).length;
+  $("mid").innerHTML = `<div class="big" style="margin-bottom:10px">
+      ${ok} of ${rows.length} recordings reproduced</div>` +
+    rows.map(r => `<div class="rep ${r.passed ? "ok" : "no"}">
+      <span class="m">${r.passed ? "OK" : "FAIL"}</span>
+      <span>${esc(r.slug)}</span>
+      <span class="s">${esc(r.actual)} · via ${esc(r.via)}</span></div>`).join("");
+  const last = DATA.steps[DATA.steps.length - 1];
+  $("rightttl").textContent = "The finished model";
+  $("rightsub").textContent = last.nodes.length + " claims, every one citing a real recorded moment";
+  $("right").innerHTML = ["rule", "derivation", "entity"].map(k => {
+    const ns = last.nodes.filter(n => n.kind === k);
+    return ns.length ? grp(k + "s") + ns.map(n =>
+      `<div class="node" data-node="${esc(n.id)}"><div class="l">${esc(n.label)}</div>
+       <div class="d">${esc(n.detail)}</div></div>`).join("") : "";
+  }).join("");
+  renderLeft(last);
+}
+
+document.addEventListener("click", e => {
+  const li = e.target.closest(".steps li");
+  if (li) { step = +li.dataset.i; selected = null; render(); return; }
+  const n = e.target.closest("[data-node]");
+  if (n) { selected = selected === n.dataset.node ? null : n.dataset.node; render(); }
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") { step = Math.min(step + 1, DATA.steps.length); selected = null; render(); }
+  if (e.key === "ArrowLeft")  { step = Math.max(step - 1, 0); selected = null; render(); }
+  if (e.key === "Escape")     { selected = null; render(); }
+});
+
+render();
+</script>
+</body>
+</html>

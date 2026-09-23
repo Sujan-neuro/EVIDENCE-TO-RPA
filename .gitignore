@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets. The endpoint and key live here; only .env.example is committed.
+.env
+
+# Pipeline output. Every run is derived from the evidence and the model, and
+# regenerable by running the pipeline again.
+runs/
+docs/replay.html
+
+# OS
+.DS_Store

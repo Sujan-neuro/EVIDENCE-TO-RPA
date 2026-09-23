@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Invoice Review — Dummy Spreadsheet App</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Invoice Exception Review</h1>
+    <label class="record-toggle">
+      <input type="checkbox" id="record-toggle" />
+      Record
+    </label>
+  </header>
+
+  <div class="record-only hidden">
+    <div class="demo-controls">
+      <span>Demonstration: <strong id="demo-id">DEMO-1</strong></span>
+      <button id="new-demo-btn">New Demo</button>
+    </div>
+    <p class="capture-hint">
+      Click a cell to select it, then <kbd>Ctrl</kbd>+<kbd>C</kbd>
+      (<kbd>&#8984;</kbd>+<kbd>C</kbd> on Mac) to record reading that value.
+      Double-click a cell to edit it.
+    </p>
+  </div>
+
+  <nav id="tabs"></nav>
+
+  <section class="toolbar">
+    <input id="search-box" type="text" placeholder="Search by ID (e.g. INV-93821, PO-4500123)" />
+    <button id="search-btn">Search</button>
+    <button id="clear-search-btn">Clear</button>
+  </section>
+
+  <main id="table-container"></main>
+
+  <div class="record-only hidden">
+    <section class="narration">
+      <label for="narration">SME Narration</label>
+      <textarea id="narration" rows="3" placeholder="Describe what you are doing and why..."></textarea>
+    </section>
+
+    <section class="export-bar">
+      <button id="export-btn">Export Evidence JSON</button>
+      <span>Events captured: <strong id="event-count">0</strong></span>
+    </section>
+
+    <section class="log-panel">
+      <h2>Live Event Log</h2>
+      <pre id="event-log"></pre>
+    </section>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="logger.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

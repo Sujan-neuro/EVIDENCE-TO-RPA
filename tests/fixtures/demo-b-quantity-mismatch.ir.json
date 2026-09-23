@@ -1,0 +1,219 @@
+{
+  "irVersion": "1.0.0",
+  "sourceDemonstrations": ["DEMO-B"],
+
+  "process": {
+    "id": "PROC-INVOICE-REVIEW",
+    "type": "Process",
+    "intent": "Determine whether a blocked invoice can be released, based on invoice quantity vs. received quantity",
+    "provenance": [
+      { "sourceType": "STATED", "sourceId": "NARRATION-B" }
+    ]
+  },
+
+  "entities": [
+    {
+      "id": "ENTITY-INVOICE",
+      "type": "Entity",
+      "name": "Invoice",
+      "keyField": "invoiceId",
+      "fields": [
+        { "name": "invoiceId", "dataType": "string" },
+        { "name": "poNumber", "dataType": "string" },
+        { "name": "invoiceQty", "dataType": "number" },
+        { "name": "status", "dataType": "string" },
+        { "name": "resolution", "dataType": "string" }
+      ],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Invoices" }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E101" },
+        { "sourceType": "OBSERVED", "sourceId": "E102" }
+      ]
+    },
+    {
+      "id": "ENTITY-GOODS-RECEIPT",
+      "type": "Entity",
+      "name": "GoodsReceipt",
+      "keyField": "poNumber",
+      "fields": [
+        { "name": "poNumber", "dataType": "string" },
+        { "name": "receivedQty", "dataType": "number" }
+      ],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Goods Receipts" }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E105" },
+        { "sourceType": "OBSERVED", "sourceId": "E106" }
+      ]
+    }
+  ],
+
+  "entityReferences": [
+    {
+      "id": "ENTREF-INVOICE-TO-GOODS-RECEIPT",
+      "type": "EntityReference",
+      "fromEntity": "ENTITY-INVOICE",
+      "fromField": "poNumber",
+      "toEntity": "ENTITY-GOODS-RECEIPT",
+      "toField": "poNumber",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E103" },
+        { "sourceType": "OBSERVED", "sourceId": "E105" },
+        { "sourceType": "OBSERVED", "sourceId": "E106" }
+      ]
+    }
+  ],
+
+  "variables": [
+    {
+      "id": "VAR-INVOICE-ID",
+      "type": "Variable",
+      "name": "invoiceId",
+      "dataType": "string",
+      "producedBy": "PROCESS_INPUT",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E102" }
+      ]
+    },
+    {
+      "id": "VAR-PO-NUMBER",
+      "type": "Variable",
+      "name": "poNumber",
+      "dataType": "string",
+      "producedBy": "TASK-01",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E103" }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-QTY",
+      "type": "Variable",
+      "name": "invoiceQuantity",
+      "dataType": "number",
+      "producedBy": "TASK-01",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E104" }
+      ]
+    },
+    {
+      "id": "VAR-RECEIVED-QTY",
+      "type": "Variable",
+      "name": "receivedQuantity",
+      "dataType": "number",
+      "producedBy": "TASK-02",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E107" }
+      ]
+    }
+  ],
+
+  "tasks": [
+    {
+      "id": "TASK-01",
+      "type": "BusinessTask",
+      "intent": "Locate the invoice under review and read its PO number and invoice quantity",
+      "entity": "ENTITY-INVOICE",
+      "inputs": ["VAR-INVOICE-ID"],
+      "outputs": ["VAR-PO-NUMBER", "VAR-INVOICE-QTY"],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "SELECT_SHEET", "sheet": "Invoices" },
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Invoices" },
+        { "application": "SpreadsheetApp", "operation": "READ_CELL", "sheet": "Invoices", "field": "poNumber" },
+        { "application": "SpreadsheetApp", "operation": "READ_CELL", "sheet": "Invoices", "field": "invoiceQty" }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E101" },
+        { "sourceType": "OBSERVED", "sourceId": "E102" },
+        { "sourceType": "OBSERVED", "sourceId": "E103" },
+        { "sourceType": "OBSERVED", "sourceId": "E104" }
+      ]
+    },
+    {
+      "id": "TASK-02",
+      "type": "BusinessTask",
+      "intent": "Retrieve the quantity actually received against the purchase order",
+      "entity": "ENTITY-GOODS-RECEIPT",
+      "inputs": ["VAR-PO-NUMBER"],
+      "outputs": ["VAR-RECEIVED-QTY"],
+      "dependsOn": ["TASK-01"],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "SELECT_SHEET", "sheet": "Goods Receipts" },
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Goods Receipts" },
+        { "application": "SpreadsheetApp", "operation": "READ_CELL", "sheet": "Goods Receipts", "field": "receivedQty" }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E105" },
+        { "sourceType": "OBSERVED", "sourceId": "E106" },
+        { "sourceType": "OBSERVED", "sourceId": "E107" },
+        { "sourceType": "STATED", "sourceId": "NARRATION-B" }
+      ]
+    }
+  ],
+
+  "computations": [],
+
+  "rules": [
+    {
+      "id": "RULE-QUANTITY-REQUIREMENT",
+      "type": "BusinessRule",
+      "name": "Quantity Requirement",
+      "condition": {
+        "operator": "<=",
+        "left": { "ref": "VAR-INVOICE-QTY" },
+        "right": { "ref": "VAR-RECEIVED-QTY" }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "E104"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "E107"
+        },
+        { "sourceType": "STATED", "sourceId": "NARRATION-B" },
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "NARRATION-B",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.9,
+          "rationale": "Narration states 'the invoice quantity is greater than the quantity actually received. Finance must not release it.' The rule's operator is deliberately modeled as invoiceQuantity <= receivedQuantity (the condition that ALLOWS release), so the observed WAREHOUSE_REVIEW outcome corresponds to this condition evaluating false — matching the documented Processing Rules sheet's 'Quantity Requirement: invoice quantity must not exceed received quantity'. This is exactly the kind of comparison that risks accidental operator reversal (>, >=) if left as free text; encoding it structurally with named operands avoids that failure mode."
+        }
+      ]
+    }
+  ],
+
+  "decisions": [
+    {
+      "id": "DEC-01",
+      "type": "Decision",
+      "intent": "Decide the invoice's resolution based on quantity agreement with goods received",
+      "outcomes": [
+        {
+          "condition": { "ref": "RULE-QUANTITY-REQUIREMENT", "equals": true },
+          "result": "RELEASED",
+          "writeAction": { "entity": "ENTITY-INVOICE", "field": "resolution", "value": "RELEASED" }
+        },
+        {
+          "condition": { "ref": "RULE-QUANTITY-REQUIREMENT", "equals": false },
+          "result": "WAREHOUSE_REVIEW",
+          "writeAction": { "entity": "ENTITY-INVOICE", "field": "resolution", "value": "WAREHOUSE_REVIEW" }
+        }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E109" },
+        { "sourceType": "STATED", "sourceId": "NARRATION-B" },
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "NARRATION-B",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.75,
+          "rationale": "Only the WAREHOUSE_REVIEW branch is directly observed (E109); the RELEASED branch is inferred as the rule's satisfied case, since Demonstration B never shows a matching-quantity example."
+        }
+      ]
+    }
+  ]
+}

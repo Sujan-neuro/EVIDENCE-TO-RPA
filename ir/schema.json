@@ -1,0 +1,892 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://invoice-review-compiler/ir/schema.json",
+  "title": "Canonical Process IR",
+  "description": "Schema for the canonical, application-independent representation of a business process, compiled from human demonstration evidence. See ir/README.md for design rationale.",
+  "type": "object",
+  "required": [
+    "irVersion",
+    "sourceDemonstrations",
+    "process",
+    "entities",
+    "variables",
+    "tasks",
+    "computations",
+    "rules",
+    "decisions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "irVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "sourceDemonstrations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Which demonstrationId(s) (from the evidence export) this IR was compiled from."
+    },
+    "process": {
+      "$ref": "#/$defs/Process"
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Entity"
+      }
+    },
+    "entityReferences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EntityReference"
+      }
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Variable"
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/BusinessTask"
+      },
+      "minItems": 1
+    },
+    "computations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Computation"
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/BusinessRule"
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Decision"
+      },
+      "minItems": 1
+    },
+    "openQuestions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What a reviewer should confirm with the SME before trusting this IR."
+    },
+    "demonstrations": {
+      "type": "array",
+      "description": "Maps each provenance prefix to the recording it refers to. Without it a qualified sourceId such as PRICE_EXCESS:E010 can only be checked for existence somewhere in the corpus, not against one specific file.",
+      "items": {
+        "type": "object",
+        "required": [
+          "prefix",
+          "file"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]+$"
+          },
+          "file": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "exceptions": {
+      "type": "array",
+      "description": "Situations the process refuses to decide, as opposed to outcomes it chooses. Keeping these separate from Decision outcomes is what lets a consumer tell 'the automation decided X' from 'the automation has never seen this'.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "trigger",
+          "severity",
+          "handling",
+          "rationale",
+          "provenance"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^EXC-"
+          },
+          "type": {
+            "const": "Exception"
+          },
+          "trigger": {
+            "type": "string",
+            "enum": [
+              "ENTITY_NOT_FOUND",
+              "GUARD_VIOLATION",
+              "NO_BRANCH_MATCHED",
+              "UNDEMONSTRATED_COMBINATION",
+              "TIMEOUT"
+            ]
+          },
+          "entity": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "FATAL",
+              "BUSINESS"
+            ]
+          },
+          "outcome": {
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "RELEASED",
+                  "PROCUREMENT_REVIEW",
+                  "WAREHOUSE_REVIEW",
+                  "MANUAL_REVIEW"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "handling": {
+            "type": "string",
+            "enum": [
+              "ABORT_PROCESS",
+              "ASSIGN_OUTCOME_AND_WRITE"
+            ]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 20
+          },
+          "provenance": {
+            "$ref": "#/$defs/ProvenanceList"
+          }
+        }
+      }
+    },
+    "flow": {
+      "type": "object",
+      "description": "The declared control flow. Present so a compiler reads the process order instead of reconstructing it from dependsOn plus decision ordering -- an inference that is easy to get wrong and impossible to verify.",
+      "required": [
+        "start",
+        "terminal",
+        "nodes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "terminal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "ref"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "type": "string"
+              },
+              "next": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "onNotFound": {
+                "type": "object",
+                "required": [
+                  "outcome"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "outcome": {
+                    "type": "string",
+                    "enum": [
+                      "RELEASED",
+                      "PROCUREMENT_REVIEW",
+                      "WAREHOUSE_REVIEW",
+                      "MANUAL_REVIEW"
+                    ]
+                  },
+                  "evidencedBy": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "ProvenanceEntry": {
+      "type": "object",
+      "required": [
+        "sourceType",
+        "sourceId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sourceType": {
+          "type": "string",
+          "enum": [
+            "OBSERVED",
+            "STATED",
+            "INFERRED",
+            "GENERATED"
+          ],
+          "description": "OBSERVED = directly visible in captured evidence (an eventId). STATED = explicitly said by the SME (a narrationId). INFERRED = derived by the compiler/LLM from evidence, not literally present in it. GENERATED = created during downstream compilation (e.g. IR->Robot), not evidence-derived at all."
+        },
+        "sourceId": {
+          "type": "string",
+          "description": "An eventId (e.g. E005), a narrationId (e.g. NARRATION-1), or an upstream IR node id (e.g. IR:TASK-04) when sourceType is GENERATED."
+        },
+        "inferredBy": {
+          "type": "string",
+          "description": "Component or model that produced this inference, e.g. 'evidence-to-ir-llm@claude-sonnet-5'."
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Why this inference was made, in plain language."
+        }
+      },
+      "if": {
+        "properties": {
+          "sourceType": {
+            "const": "INFERRED"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "sourceType",
+          "sourceId",
+          "inferredBy",
+          "rationale"
+        ]
+      }
+    },
+    "ProvenanceList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ProvenanceEntry"
+      },
+      "minItems": 1
+    },
+    "ImplementationHint": {
+      "type": "object",
+      "required": [
+        "application",
+        "operation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "application": {
+          "type": "string",
+          "const": "SpreadsheetApp"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "SELECT_SHEET",
+            "LOOKUP_ROW",
+            "READ_CELL",
+            "WRITE_CELL",
+            "CHECK_EXISTS"
+          ]
+        },
+        "sheet": {
+          "type": "string",
+          "enum": [
+            "Invoices",
+            "Purchase Orders",
+            "Goods Receipts",
+            "Processing Rules"
+          ]
+        },
+        "field": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string",
+          "description": "Business-key value identifying WHICH row a LOOKUP_ROW targets, when it is a literal rather than supplied by an input variable. Without it a task that reads two different rows of the same sheet is ambiguous, and the compiler is left to guess the row."
+        },
+        "value": {
+          "type": "string",
+          "description": "For WRITE_CELL: the variable id whose value is written. Without it the hint says a cell is written but not with what."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "enum": [
+                  "READ_CELL",
+                  "WRITE_CELL"
+                ]
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "required": [
+              "sheet",
+              "field"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "enum": [
+                  "SELECT_SHEET",
+                  "LOOKUP_ROW",
+                  "CHECK_EXISTS"
+                ]
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "required": [
+              "sheet"
+            ]
+          }
+        }
+      ]
+    },
+    "Process": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "intent",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^PROC-"
+        },
+        "type": {
+          "const": "Process"
+        },
+        "intent": {
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceList"
+        }
+      }
+    },
+    "Entity": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "name",
+        "keyField",
+        "fields",
+        "implementationHints",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ENTITY-"
+        },
+        "type": {
+          "const": "Entity"
+        },
+        "name": {
+          "type": "string"
+        },
+        "keyField": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "dataType"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "dataType": {
+                "type": "string",
+                "enum": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              }
+            }
+          }
+        },
+        "implementationHints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ImplementationHint"
+          },
+          "minItems": 1
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceList"
+        }
+      }
+    },
+    "EntityReference": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "fromEntity",
+        "fromField",
+        "toEntity",
+        "toField",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ENTREF-"
+        },
+        "type": {
+          "const": "EntityReference"
+        },
+        "fromEntity": {
+          "type": "string",
+          "pattern": "^ENTITY-"
+        },
+        "fromField": {
+          "type": "string"
+        },
+        "toEntity": {
+          "type": "string",
+          "pattern": "^ENTITY-"
+        },
+        "toField": {
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceList"
+        }
+      }
+    },
+    "Variable": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "name",
+        "dataType",
+        "producedBy",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^VAR-"
+        },
+        "type": {
+          "const": "Variable"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dataType": {
+          "type": "string",
+          "enum": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        },
+        "producedBy": {
+          "type": "string",
+          "pattern": "^(TASK-|COMP-|PROCESS_INPUT)",
+          "description": "id of the BusinessTask or Computation that outputs this variable, or the literal 'PROCESS_INPUT' for a parameter supplied to the process at run time (e.g. which invoiceId to process) rather than computed by any task."
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceList"
+        }
+      }
+    },
+    "BusinessTask": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "intent",
+        "entity",
+        "inputs",
+        "outputs",
+        "implementationHints",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^TASK-"
+        },
+        "type": {
+          "const": "BusinessTask"
+        },
+        "intent": {
+          "type": "string"
+        },
+        "entity": {
+          "type": "string",
+          "pattern": "^ENTITY-"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^VAR-"
+          }
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^TASK-"
+          }
+        },
+        "implementationHints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ImplementationHint"
+          },
+          "minItems": 1
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceList"
+        }
+      }
+    },
+    "Computation": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "function",
+        "inputs",
+        "output",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^COMP-"
+        },
+        "type": {
+          "const": "Computation"
+        },
+        "function": {
+          "type": "string",
+          "enum": [
+            "ABS_DIFFERENCE",
+            "ABS_PERCENT_DIFFERENCE",
+            "DIFFERENCE",
+            "PRODUCT",
+            "SUM",
+            "IDENTITY"
+          ],
+          "description": "A fixed, deterministic vocabulary of arithmetic operations. Deliberately NOT a free-text expression string, so the IR->Robot step cannot mis-transcribe formula semantics (see README, 'Why Computation nodes instead of expression strings'). PRODUCT/SUM/DIFFERENCE were added once a demonstrated rule needed a quantity that no pairwise difference can express: a total overcharge is a per-unit price difference multiplied by the number of units."
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^VAR-"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "output": {
+          "type": "string",
+          "pattern": "^VAR-"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceList"
+        }
+      }
+    },
+    "BusinessRule": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "name",
+        "condition",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^RULE-"
+        },
+        "type": {
+          "const": "BusinessRule"
+        },
+        "name": {
+          "type": "string"
+        },
+        "condition": {
+          "type": "object",
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "operator": {
+              "type": "string",
+              "enum": [
+                "==",
+                "!=",
+                "<",
+                "<=",
+                ">",
+                ">="
+              ]
+            },
+            "left": {
+              "$ref": "#/$defs/Operand"
+            },
+            "right": {
+              "$ref": "#/$defs/Operand"
+            }
+          }
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceList"
+        },
+        "statement": {
+          "type": "string",
+          "description": "The rule in business language."
+        },
+        "trueMeans": {
+          "type": "string",
+          "description": "Plain meaning of the TRUE case, so a rule's name cannot drift from its operator."
+        }
+      }
+    },
+    "Operand": {
+      "type": "object",
+      "oneOf": [
+        {
+          "required": [
+            "ref"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "pattern": "^(VAR|COMP)-"
+            }
+          }
+        },
+        {
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "string",
+                "boolean"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "Decision": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "intent",
+        "outcomes",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^DEC-"
+        },
+        "type": {
+          "const": "Decision"
+        },
+        "intent": {
+          "type": "string"
+        },
+        "outcomes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "result",
+              "writeAction"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "condition": {
+                "type": "object",
+                "required": [
+                  "ref",
+                  "equals"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "ref": {
+                    "type": "string",
+                    "pattern": "^RULE-"
+                  },
+                  "equals": {
+                    "type": "boolean"
+                  }
+                },
+                "description": "Omit this field only on a single fallback outcome (e.g. 'PO not found -> MANUAL_REVIEW') that has no rule to evaluate."
+              },
+              "result": {
+                "type": "string",
+                "enum": [
+                  "RELEASED",
+                  "PROCUREMENT_REVIEW",
+                  "WAREHOUSE_REVIEW",
+                  "MANUAL_REVIEW"
+                ]
+              },
+              "writeAction": {
+                "type": "object",
+                "required": [
+                  "entity",
+                  "field",
+                  "value"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "entity": {
+                    "type": "string",
+                    "pattern": "^ENTITY-"
+                  },
+                  "field": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceList"
+        },
+        "evaluationOrder": {
+          "type": "string",
+          "enum": [
+            "FIRST_MATCH",
+            "ALL_MATCH"
+          ]
+        },
+        "priorityOrder": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Rule ids in evaluation order. Explicit because array order alone is not a contract."
+        },
+        "defaultOutcome": {
+          "type": "string",
+          "enum": [
+            "RELEASED",
+            "PROCUREMENT_REVIEW",
+            "WAREHOUSE_REVIEW",
+            "MANUAL_REVIEW"
+          ]
+        }
+      }
+    }
+  }
+}

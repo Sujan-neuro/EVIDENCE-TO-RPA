@@ -1,0 +1,2571 @@
+{
+  "irVersion": "1.0.0",
+  "sourceDemonstrations": [
+    "recorded/absolute-difference-exceeded.json",
+    "recorded/everything-correct.json",
+    "recorded/missing-po.json",
+    "recorded/price-excess.json",
+    "recorded/price-within-tolerance.json",
+    "recorded/quantity-mismatch.json",
+    "recorded/thorough-release.json"
+  ],
+  "demonstrations": [
+    {
+      "prefix": "ABSOLUTE_DIFFERENCE_EXCEEDED",
+      "file": "recorded/absolute-difference-exceeded.json"
+    },
+    {
+      "prefix": "EVERYTHING_CORRECT",
+      "file": "recorded/everything-correct.json"
+    },
+    {
+      "prefix": "MISSING_PO",
+      "file": "recorded/missing-po.json"
+    },
+    {
+      "prefix": "PRICE_EXCESS",
+      "file": "recorded/price-excess.json"
+    },
+    {
+      "prefix": "PRICE_WITHIN_TOLERANCE",
+      "file": "recorded/price-within-tolerance.json"
+    },
+    {
+      "prefix": "QUANTITY_MISMATCH",
+      "file": "recorded/quantity-mismatch.json"
+    },
+    {
+      "prefix": "THOROUGH_RELEASE",
+      "file": "recorded/thorough-release.json"
+    }
+  ],
+  "process": {
+    "id": "PROC-INVOICE-REVIEW",
+    "type": "Process",
+    "intent": "Verify incoming invoices against purchase orders and goods receipts using defined tolerances to determine if they can be released or require specialist review.",
+    "provenance": [
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E001",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E002",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E003",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E005",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E006",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E007",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E008",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E010",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E011",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E012",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E013",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E014",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E015",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E016",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E017",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E018",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E019",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E020",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E049",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E050",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E051",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E052",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E053",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E054",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E055",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E056",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E057",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E058",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E059",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E060",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E061",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E062",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "EVERYTHING_CORRECT:E063",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E001",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E002",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E003",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E004",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E005",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E006",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E007",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E008",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E009",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "MISSING_PO:E010",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E001",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E002",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E003",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E004",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E005",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E006",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E007",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E008",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E009",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E010",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E011",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E012",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E013",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E014",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E015",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_EXCESS:E016",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E019",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E020",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E021",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E022",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E023",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E024",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E025",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E026",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E027",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E028",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E029",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E030",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "PRICE_WITHIN_TOLERANCE:E031",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E015",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E016",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E017",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E018",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E019",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E020",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E021",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E022",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E023",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E024",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E025",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E026",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E027",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E028",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E029",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E030",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "QUANTITY_MISMATCH:E031",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E001",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E002",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E003",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E004",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E005",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E006",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E007",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E008",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E009",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E010",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E011",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E012",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E013",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E014",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E015",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E016",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E017",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E018",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E019",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E020",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E021",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      },
+      {
+        "sourceType": "INFERRED",
+        "sourceId": "THOROUGH_RELEASE:E022",
+        "inferredBy": "ir-synthesis",
+        "rationale": "Process intent synthesised across all demonstrations; each recording shows only one path through it.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "entities": [
+    {
+      "id": "ENTITY-INVOICE",
+      "type": "Entity",
+      "name": "Invoice",
+      "keyField": "invoiceId",
+      "fields": [
+        {
+          "name": "invoiceId",
+          "dataType": "string"
+        },
+        {
+          "name": "blockReason",
+          "dataType": "string"
+        },
+        {
+          "name": "invoiceQty",
+          "dataType": "number"
+        },
+        {
+          "name": "unitPrice",
+          "dataType": "number"
+        },
+        {
+          "name": "poNumber",
+          "dataType": "string"
+        },
+        {
+          "name": "resolution",
+          "dataType": "string"
+        }
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Invoices"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E049"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E019"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E001"
+        }
+      ]
+    },
+    {
+      "id": "ENTITY-PURCHASE-ORDER",
+      "type": "Entity",
+      "name": "Purchase Order",
+      "keyField": "poNumber",
+      "fields": [
+        {
+          "name": "orderedQty",
+          "dataType": "number"
+        },
+        {
+          "name": "unitPrice",
+          "dataType": "number"
+        },
+        {
+          "name": "poNumber",
+          "dataType": "string"
+        }
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Purchase Orders"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E055"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E006"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E020"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E021"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E008"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E009"
+        }
+      ]
+    },
+    {
+      "id": "ENTITY-GOODS-RECEIPT",
+      "type": "Entity",
+      "name": "Goods Receipt",
+      "keyField": "poNumber",
+      "fields": [
+        {
+          "name": "receivedQty",
+          "dataType": "number"
+        },
+        {
+          "name": "poNumber",
+          "dataType": "string"
+        }
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Goods Receipts"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E059"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E012"
+        }
+      ]
+    },
+    {
+      "id": "ENTITY-PROCESSING-RULES",
+      "type": "Entity",
+      "name": "Processing Rules",
+      "keyField": "rule",
+      "fields": [
+        {
+          "name": "rule",
+          "dataType": "string"
+        },
+        {
+          "name": "MaxPriceVarianceThreshold",
+          "dataType": "number"
+        },
+        {
+          "name": "MaxAbsoluteDifferenceThreshold",
+          "dataType": "number"
+        }
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Processing Rules"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E018"
+        }
+      ]
+    }
+  ],
+  "entityReferences": [],
+  "variables": [
+    {
+      "id": "VAR-INVOICE-INVOICE-ID",
+      "type": "Variable",
+      "name": "invoiceInvoice ID",
+      "dataType": "string",
+      "producedBy": "PROCESS_INPUT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E049"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E019"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E001"
+        }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-BLOCK-REASON",
+      "type": "Variable",
+      "name": "invoiceBlock Reason",
+      "dataType": "string",
+      "producedBy": "PROCESS_INPUT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E050"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E020"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E002"
+        }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-INVOICE-QTY",
+      "type": "Variable",
+      "name": "invoiceInvoice Qty",
+      "dataType": "number",
+      "producedBy": "TASK-LOCATE-INVOICE",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E051"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E003"
+        }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-UNIT-PRICE",
+      "type": "Variable",
+      "name": "invoiceUnit Price",
+      "dataType": "number",
+      "producedBy": "TASK-LOCATE-INVOICE",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E052"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E004"
+        }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-PO-NUMBER",
+      "type": "Variable",
+      "name": "invoicePO Number",
+      "dataType": "string",
+      "producedBy": "TASK-LOCATE-INVOICE",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E005"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E053"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E021"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E018"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E005"
+        }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-RESOLUTION",
+      "type": "Variable",
+      "name": "invoiceResolution",
+      "dataType": "string",
+      "producedBy": "TASK-ASSIGN-VERDICT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E020"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E063"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E031"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E031"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E022"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PURCHASE-ORDER-ORDERED-QTY",
+      "type": "Variable",
+      "name": "purchase OrderOrdered Qty",
+      "dataType": "number",
+      "producedBy": "TASK-LOCATE-PO",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E008"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E056"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E021"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E008"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PURCHASE-ORDER-UNIT-PRICE",
+      "type": "Variable",
+      "name": "purchase OrderUnit Price",
+      "dataType": "number",
+      "producedBy": "TASK-LOCATE-PO",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E057"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E009"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PURCHASE-ORDER-PO-NUMBER",
+      "type": "Variable",
+      "name": "purchase OrderPO Number",
+      "dataType": "string",
+      "producedBy": "PROCESS_INPUT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E006"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E020"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E007"
+        }
+      ]
+    },
+    {
+      "id": "VAR-GOODS-RECEIPT-RECEIVED-QTY",
+      "type": "Variable",
+      "name": "goods ReceiptReceived Qty",
+      "dataType": "number",
+      "producedBy": "TASK-LOCATE-GR",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "EVERYTHING_CORRECT:E060"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E012"
+        }
+      ]
+    },
+    {
+      "id": "VAR-GOODS-RECEIPT-PO-NUMBER",
+      "type": "Variable",
+      "name": "goods ReceiptPO Number",
+      "dataType": "string",
+      "producedBy": "PROCESS_INPUT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E011"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PROCESSING-RULES-RULE",
+      "type": "Variable",
+      "name": "processing RulesRule",
+      "dataType": "string",
+      "producedBy": "PROCESS_INPUT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E018"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PROCESSING-RULES-MAXPRICEVARIANCETHRESHOLD",
+      "type": "Variable",
+      "name": "processing RulesMaxPriceVarianceThreshold",
+      "dataType": "number",
+      "producedBy": "TASK-READ-RULES",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E015"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PROCESSING-RULES-MAXABSOLUTEDIFFERENCETHRESHOLD",
+      "type": "Variable",
+      "name": "processing RulesMaxAbsoluteDifferenceThreshold",
+      "dataType": "number",
+      "producedBy": "TASK-READ-RULES",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E017"
+        }
+      ]
+    },
+    {
+      "id": "VAR-UNITPRICEVARIANCEPERCENT",
+      "type": "Variable",
+      "name": "UnitPriceVariancePercent",
+      "dataType": "number",
+      "producedBy": "COMP-UNITPRICEVARIANCEPERCENT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009"
+        }
+      ]
+    },
+    {
+      "id": "VAR-UNITPRICEVARIANCEAMOUNT",
+      "type": "Variable",
+      "name": "UnitPriceVarianceAmount",
+      "dataType": "number",
+      "producedBy": "COMP-UNITPRICEVARIANCEAMOUNT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009"
+        }
+      ]
+    },
+    {
+      "id": "VAR-TOTALOVERCHARGEAMOUNT",
+      "type": "Variable",
+      "name": "TotalOverchargeAmount",
+      "dataType": "number",
+      "producedBy": "COMP-TOTALOVERCHARGEAMOUNT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009"
+        }
+      ]
+    },
+    {
+      "id": "VAR-MAXIMUM-PRICE-VARIANCE",
+      "type": "Variable",
+      "name": "Maximum Price Variance",
+      "dataType": "number",
+      "producedBy": "TASK-READ-RULES",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E015"
+        }
+      ]
+    },
+    {
+      "id": "VAR-MAXIMUM-ABSOLUTE-DIFFERENCE",
+      "type": "Variable",
+      "name": "Maximum Absolute Difference",
+      "dataType": "number",
+      "producedBy": "TASK-READ-RULES",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E017"
+        }
+      ]
+    },
+    {
+      "id": "VAR-PURCHASE-ORDER-EXISTS",
+      "type": "Variable",
+      "name": "purchase OrderExists",
+      "dataType": "boolean",
+      "producedBy": "TASK-CHECK-PURCHASE-ORDER",
+      "provenance": [
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "MISSING_PO:E003",
+          "inferredBy": "ir-synthesis",
+          "rationale": "Concluded from a search for the entity returning no row; no event reports existence directly.",
+          "confidence": 0.95
+        },
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "MISSING_PO:E005",
+          "inferredBy": "ir-synthesis",
+          "rationale": "Concluded from a search for the entity returning no row; no event reports existence directly.",
+          "confidence": 0.95
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK-LOCATE-INVOICE",
+      "type": "BusinessTask",
+      "intent": "Retrieve the invoice record using its unique identifier to access billing data including quantity, price, and purchase order reference.",
+      "entity": "ENTITY-INVOICE",
+      "inputs": [
+        "VAR-INVOICE-INVOICE-ID"
+      ],
+      "outputs": [
+        "VAR-INVOICE-INVOICE-QTY",
+        "VAR-INVOICE-UNIT-PRICE",
+        "VAR-INVOICE-PO-NUMBER"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "CHECK_EXISTS",
+          "sheet": "Invoices"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E005"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E019"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E020"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E021"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E018"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E001"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E002"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E005"
+        }
+      ]
+    },
+    {
+      "id": "TASK-LOCATE-PO",
+      "type": "BusinessTask",
+      "intent": "Search for the purchase order corresponding to the invoice's PO number to establish contractual baselines for quantity and pricing.",
+      "entity": "ENTITY-PURCHASE-ORDER",
+      "inputs": [
+        "VAR-INVOICE-PO-NUMBER"
+      ],
+      "outputs": [
+        "VAR-PURCHASE-ORDER-ORDERED-QTY",
+        "VAR-PURCHASE-ORDER-UNIT-PRICE"
+      ],
+      "dependsOn": [
+        "TASK-LOCATE-INVOICE",
+        "TASK-CHECK-PURCHASE-ORDER"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "CHECK_EXISTS",
+          "sheet": "Purchase Orders"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E006"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E008"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E005"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E006"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E022"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E019"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E020"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E021"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E006"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E007"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E008"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E009"
+        }
+      ]
+    },
+    {
+      "id": "TASK-LOCATE-GR",
+      "type": "BusinessTask",
+      "intent": "Retrieve the goods receipt record to verify the physically delivered quantities confirmed against this purchase order.",
+      "entity": "ENTITY-GOODS-RECEIPT",
+      "inputs": [
+        "VAR-INVOICE-PO-NUMBER"
+      ],
+      "outputs": [
+        "VAR-GOODS-RECEIPT-RECEIVED-QTY"
+      ],
+      "dependsOn": [
+        "TASK-LOCATE-PO"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "CHECK_EXISTS",
+          "sheet": "Goods Receipts"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E022"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E023"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E012"
+        }
+      ]
+    },
+    {
+      "id": "TASK-READ-RULES",
+      "type": "BusinessTask",
+      "intent": "Fetch the configured tolerance limits for price variance percentage and absolute monetary differences from the processing rules sheet.",
+      "entity": "ENTITY-PROCESSING-RULES",
+      "inputs": [],
+      "outputs": [
+        "VAR-PROCESSING-RULES-MAXPRICEVARIANCETHRESHOLD",
+        "VAR-PROCESSING-RULES-MAXABSOLUTEDIFFERENCETHRESHOLD"
+      ],
+      "dependsOn": [
+        "TASK-LOCATE-GR"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "LOOKUP_ROW",
+          "sheet": "Processing Rules"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Processing Rules",
+          "field": "value",
+          "key": "Maximum Price Variance"
+        },
+        {
+          "application": "SpreadsheetApp",
+          "operation": "READ_CELL",
+          "sheet": "Processing Rules",
+          "field": "value",
+          "key": "Maximum Absolute Difference"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E013"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E008"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E025"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E025"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E013"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E018"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E019"
+        }
+      ]
+    },
+    {
+      "id": "TASK-CHECK-PURCHASE-ORDER",
+      "type": "BusinessTask",
+      "intent": "Check whether a matching Purchase Order can be found",
+      "entity": "ENTITY-PURCHASE-ORDER",
+      "inputs": [
+        "VAR-INVOICE-PO-NUMBER"
+      ],
+      "outputs": [
+        "VAR-PURCHASE-ORDER-EXISTS"
+      ],
+      "implementationHints": [
+        {
+          "application": "SpreadsheetApp",
+          "operation": "CHECK_EXISTS",
+          "sheet": "Purchase Orders"
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        }
+      ]
+    }
+  ],
+  "computations": [
+    {
+      "id": "COMP-UNITPRICEVARIANCEPERCENT",
+      "type": "Computation",
+      "function": "ABS_PERCENT_DIFFERENCE",
+      "inputs": [
+        "VAR-INVOICE-UNIT-PRICE",
+        "VAR-PURCHASE-ORDER-UNIT-PRICE"
+      ],
+      "output": "VAR-UNITPRICEVARIANCEPERCENT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009"
+        }
+      ]
+    },
+    {
+      "id": "COMP-UNITPRICEVARIANCEAMOUNT",
+      "type": "Computation",
+      "function": "ABS_DIFFERENCE",
+      "inputs": [
+        "VAR-INVOICE-UNIT-PRICE",
+        "VAR-PURCHASE-ORDER-UNIT-PRICE"
+      ],
+      "output": "VAR-UNITPRICEVARIANCEAMOUNT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009"
+        }
+      ]
+    },
+    {
+      "id": "COMP-TOTALOVERCHARGEAMOUNT",
+      "type": "Computation",
+      "function": "PRODUCT",
+      "inputs": [
+        "VAR-UNITPRICEVARIANCEAMOUNT",
+        "VAR-INVOICE-INVOICE-QTY"
+      ],
+      "output": "VAR-TOTALOVERCHARGEAMOUNT",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E004"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E009"
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "RULE-PO-EXISTENCE",
+      "type": "BusinessRule",
+      "name": "Purchase Order Existence Check",
+      "statement": "A valid purchase order corresponding to the invoice PO number must exist in the system before any financial review can proceed.",
+      "trueMeans": "A valid purchase order exists for this invoice, allowing financial verification to proceed.",
+      "condition": {
+        "operator": "==",
+        "left": {
+          "ref": "VAR-PURCHASE-ORDER-EXISTS"
+        },
+        "right": {
+          "value": false
+        }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        }
+      ]
+    },
+    {
+      "id": "RULE-QTY-MATCH",
+      "type": "BusinessRule",
+      "name": "Quantity Matching Requirement",
+      "statement": "The invoiced quantity must not exceed the quantity recorded as physically received in the goods receipt.",
+      "trueMeans": "The billed quantity does not exceed the physically received quantity.",
+      "condition": {
+        "operator": "<=",
+        "left": {
+          "ref": "VAR-INVOICE-INVOICE-QTY"
+        },
+        "right": {
+          "ref": "VAR-GOODS-RECEIPT-RECEIVED-QTY"
+        }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E018"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E019"
+        }
+      ]
+    },
+    {
+      "id": "RULE-PCT-VARIANCE",
+      "type": "BusinessRule",
+      "name": "Percentage Price Variance Limit",
+      "statement": "The invoice unit price may deviate from the purchase order unit price only up to a specified maximum percentage threshold.",
+      "trueMeans": "The price deviation stays within the acceptable percentage threshold.",
+      "condition": {
+        "operator": "<=",
+        "left": {
+          "ref": "VAR-UNITPRICEVARIANCEPERCENT"
+        },
+        "right": {
+          "ref": "VAR-PROCESSING-RULES-MAXPRICEVARIANCETHRESHOLD"
+        }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E015"
+        }
+      ]
+    },
+    {
+      "id": "RULE-ABS-DIFF",
+      "type": "BusinessRule",
+      "name": "Absolute Difference Cap",
+      "statement": "The total monetary overcharge derived from the price difference multiplied by quantity must not exceed a fixed maximum amount.",
+      "trueMeans": "The total monetary overcharge remains below the configured cap.",
+      "condition": {
+        "operator": "<=",
+        "left": {
+          "ref": "VAR-TOTALOVERCHARGEAMOUNT"
+        },
+        "right": {
+          "ref": "VAR-PROCESSING-RULES-MAXABSOLUTEDIFFERENCETHRESHOLD"
+        }
+      },
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E017"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-01-PO-EXISTENCE",
+      "type": "Decision",
+      "intent": "Route to MANUAL_REVIEW when the Purchase Order Existence Check check fails",
+      "evaluationOrder": "FIRST_MATCH",
+      "outcomes": [
+        {
+          "condition": {
+            "ref": "RULE-PO-EXISTENCE",
+            "equals": true
+          },
+          "result": "MANUAL_REVIEW",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "MANUAL_REVIEW"
+          }
+        }
+      ],
+      "priorityOrder": [
+        "RULE-PO-EXISTENCE",
+        "RULE-QTY-MATCH",
+        "RULE-PCT-VARIANCE",
+        "RULE-ABS-DIFF"
+      ],
+      "defaultOutcome": "MANUAL_REVIEW",
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "MISSING_PO:E005"
+        }
+      ]
+    },
+    {
+      "id": "DEC-02-QTY-MATCH",
+      "type": "Decision",
+      "intent": "Route to WAREHOUSE_REVIEW when the Quantity Matching Requirement check fails",
+      "evaluationOrder": "FIRST_MATCH",
+      "outcomes": [
+        {
+          "condition": {
+            "ref": "RULE-QTY-MATCH",
+            "equals": false
+          },
+          "result": "WAREHOUSE_REVIEW",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "WAREHOUSE_REVIEW"
+          }
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E024"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E026"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "QUANTITY_MISMATCH:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E003"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E018"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E019"
+        }
+      ]
+    },
+    {
+      "id": "DEC-03-PCT-VARIANCE",
+      "type": "Decision",
+      "intent": "Route to PROCUREMENT_REVIEW when the Percentage Price Variance Limit check fails",
+      "evaluationOrder": "FIRST_MATCH",
+      "outcomes": [
+        {
+          "condition": {
+            "ref": "RULE-PCT-VARIANCE",
+            "equals": false
+          },
+          "result": "PROCUREMENT_REVIEW",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "PROCUREMENT_REVIEW"
+          }
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E015"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E009"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E010"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E027"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_WITHIN_TOLERANCE:E028"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E014"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E015"
+        }
+      ]
+    },
+    {
+      "id": "DEC-04-ABS-DIFF",
+      "type": "Decision",
+      "intent": "Route to PROCUREMENT_REVIEW when the Absolute Difference Cap check fails",
+      "evaluationOrder": "FIRST_MATCH",
+      "outcomes": [
+        {
+          "condition": {
+            "ref": "RULE-ABS-DIFF",
+            "equals": false
+          },
+          "result": "PROCUREMENT_REVIEW",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "PROCUREMENT_REVIEW"
+          }
+        }
+      ],
+      "provenance": [
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "ABSOLUTE_DIFFERENCE_EXCEEDED:E017"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E011"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "PRICE_EXCESS:E012"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E016"
+        },
+        {
+          "sourceType": "OBSERVED",
+          "sourceId": "THOROUGH_RELEASE:E017"
+        }
+      ]
+    },
+    {
+      "id": "DEC-05-DEFAULT-RELEASE",
+      "type": "Decision",
+      "intent": "[ASSUMED, not in original IR] If none of the four checks above triggered a review, release the invoice.",
+      "outcomes": [
+        {
+          "result": "RELEASED",
+          "writeAction": {
+            "entity": "ENTITY-INVOICE",
+            "field": "resolution",
+            "value": "RELEASED"
+          }
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    "Does under-delivery (invoice qty < received qty) trigger any review or auto-release?",
+    "What specific actions or notifications occur after a REVIEW verdict is assigned?",
+    "Are there other tolerance rules or exceptions not captured in the demonstrated scenarios?",
+    "How are partial deliveries handled if multiple goods receipts exist for one PO?",
+    "RULE-QTY-MATCH previously failed to PROCUREMENT_REVIEW; QUANTITY_MISMATCH and THOROUGH_RELEASE recordings demonstrate it correctly fails to WAREHOUSE_REVIEW instead."
+  ],
+  "flow": {
+    "start": "TASK-LOCATE-INVOICE",
+    "terminal": [
+      "END"
+    ],
+    "nodes": [
+      {
+        "ref": "TASK-LOCATE-INVOICE",
+        "next": "TASK-LOCATE-PO"
+      },
+      {
+        "ref": "TASK-LOCATE-PO",
+        "next": "TASK-LOCATE-GR"
+      },
+      {
+        "ref": "TASK-LOCATE-GR",
+        "next": "TASK-READ-RULES"
+      },
+      {
+        "ref": "TASK-READ-RULES",
+        "next": "TASK-ASSIGN-VERDICT"
+      },
+      {
+        "ref": "TASK-ASSIGN-VERDICT",
+        "next": "END"
+      }
+    ]
+  }
+}

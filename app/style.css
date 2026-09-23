@@ -1,0 +1,192 @@
+body {
+  font-family: -apple-system, Arial, sans-serif;
+  margin: 0;
+  padding: 16px;
+  background: #f5f6f8;
+  color: #1a1a1a;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.demo-controls button {
+  margin-left: 6px;
+}
+
+.record-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.record-toggle input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.tab {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+}
+
+.tab.active {
+  background: #2b6cb0;
+  color: #fff;
+  border-color: #2b6cb0;
+}
+
+.toolbar {
+  margin-bottom: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+#search-box {
+  flex: 0 0 320px;
+  padding: 6px 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  border: 1px solid #e2e2e2;
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 13px;
+}
+
+th {
+  background: #eef1f5;
+}
+
+tr.highlight td {
+  background: #fff6d6;
+}
+
+td.editable {
+  cursor: pointer;
+}
+
+td.editable:hover {
+  outline: 2px solid #2b6cb0;
+}
+
+td input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.no-results {
+  padding: 10px;
+  color: #666;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.add-row-bar {
+  margin-top: 10px;
+}
+
+.add-row-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: end;
+  margin-top: 8px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-row-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  color: #555;
+}
+
+.add-row-form input {
+  padding: 4px 6px;
+  margin-top: 2px;
+}
+
+.narration, .export-bar, .log-panel {
+  margin-top: 16px;
+}
+
+.narration textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.log-panel pre {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 10px;
+  max-height: 260px;
+  overflow: auto;
+  font-size: 11px;
+  border-radius: 4px;
+}
+
+
+/* A selected cell is the one Ctrl/Cmd+C will record a READ for. */
+td.selected {
+  outline: 2px solid #2563eb;
+  outline-offset: -2px;
+  background: #eff6ff;
+}
+
+/* Brief confirmation that the read was captured. */
+td.just-read {
+  background: #bbf7d0;
+  transition: background 0.4s ease;
+}
+
+.capture-hint {
+  margin: 6px 0 10px;
+  font-size: 12px;
+  color: #475569;
+}
+.capture-hint kbd {
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}

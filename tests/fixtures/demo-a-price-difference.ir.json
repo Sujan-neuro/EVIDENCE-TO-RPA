@@ -1,0 +1,292 @@
+{
+  "irVersion": "1.0.0",
+  "sourceDemonstrations": ["DEMO-A"],
+
+  "process": {
+    "id": "PROC-INVOICE-REVIEW",
+    "type": "Process",
+    "intent": "Determine whether a blocked invoice can be released, based on price agreement with its purchase order",
+    "provenance": [
+      { "sourceType": "STATED", "sourceId": "NARRATION-A" }
+    ]
+  },
+
+  "entities": [
+    {
+      "id": "ENTITY-INVOICE",
+      "type": "Entity",
+      "name": "Invoice",
+      "keyField": "invoiceId",
+      "fields": [
+        { "name": "invoiceId", "dataType": "string" },
+        { "name": "poNumber", "dataType": "string" },
+        { "name": "unitPrice", "dataType": "number" },
+        { "name": "status", "dataType": "string" },
+        { "name": "resolution", "dataType": "string" }
+      ],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Invoices" }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E001" },
+        { "sourceType": "OBSERVED", "sourceId": "E002" }
+      ]
+    },
+    {
+      "id": "ENTITY-PO",
+      "type": "Entity",
+      "name": "PurchaseOrder",
+      "keyField": "poNumber",
+      "fields": [
+        { "name": "poNumber", "dataType": "string" },
+        { "name": "unitPrice", "dataType": "number" }
+      ],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Purchase Orders" }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E005" },
+        { "sourceType": "OBSERVED", "sourceId": "E006" }
+      ]
+    },
+    {
+      "id": "ENTITY-RULE",
+      "type": "Entity",
+      "name": "ProcessingRule",
+      "keyField": "rule",
+      "fields": [
+        { "name": "rule", "dataType": "string" },
+        { "name": "value", "dataType": "string" }
+      ],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Processing Rules" }
+      ],
+      "provenance": [
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "NARRATION-A",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.7,
+          "rationale": "Demonstration A's event trace (E001-E009) never navigates to the Processing Rules sheet, but the narration explicitly references 'the allowed tolerance', and the brief's documented sheet structure defines a 'Maximum Price Variance' rule. The entity is inferred from that combination rather than observed as a discrete navigation event; a stricter pipeline would flag this for SME confirmation."
+        }
+      ]
+    }
+  ],
+
+  "entityReferences": [
+    {
+      "id": "ENTREF-INVOICE-TO-PO",
+      "type": "EntityReference",
+      "fromEntity": "ENTITY-INVOICE",
+      "fromField": "poNumber",
+      "toEntity": "ENTITY-PO",
+      "toField": "poNumber",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E003" },
+        { "sourceType": "OBSERVED", "sourceId": "E005" },
+        { "sourceType": "OBSERVED", "sourceId": "E006" }
+      ]
+    }
+  ],
+
+  "variables": [
+    {
+      "id": "VAR-INVOICE-ID",
+      "type": "Variable",
+      "name": "invoiceId",
+      "dataType": "string",
+      "producedBy": "PROCESS_INPUT",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E002" }
+      ]
+    },
+    {
+      "id": "VAR-PO-NUMBER",
+      "type": "Variable",
+      "name": "poNumber",
+      "dataType": "string",
+      "producedBy": "TASK-01",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E003" }
+      ]
+    },
+    {
+      "id": "VAR-INVOICE-PRICE",
+      "type": "Variable",
+      "name": "invoicePrice",
+      "dataType": "number",
+      "producedBy": "TASK-01",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E004" }
+      ]
+    },
+    {
+      "id": "VAR-PO-PRICE",
+      "type": "Variable",
+      "name": "purchaseOrderUnitPrice",
+      "dataType": "number",
+      "producedBy": "TASK-02",
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E007" }
+      ]
+    },
+    {
+      "id": "VAR-MAX-VARIANCE-PCT",
+      "type": "Variable",
+      "name": "maxPriceVariancePercent",
+      "dataType": "number",
+      "producedBy": "TASK-03",
+      "provenance": [
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "NARRATION-A",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.7,
+          "rationale": "Value (2%) taken from the documented Processing Rules sheet content, not from a discrete READ_CELL event in Demonstration A's trace."
+        }
+      ]
+    },
+    {
+      "id": "VAR-PRICE-VARIANCE-PCT",
+      "type": "Variable",
+      "name": "priceVariancePercent",
+      "dataType": "number",
+      "producedBy": "COMP-PRICE-VARIANCE",
+      "provenance": [
+        { "sourceType": "GENERATED", "sourceId": "IR:COMP-PRICE-VARIANCE" }
+      ]
+    }
+  ],
+
+  "tasks": [
+    {
+      "id": "TASK-01",
+      "type": "BusinessTask",
+      "intent": "Locate the invoice under review and read its PO number and price",
+      "entity": "ENTITY-INVOICE",
+      "inputs": ["VAR-INVOICE-ID"],
+      "outputs": ["VAR-PO-NUMBER", "VAR-INVOICE-PRICE"],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "SELECT_SHEET", "sheet": "Invoices" },
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Invoices" },
+        { "application": "SpreadsheetApp", "operation": "READ_CELL", "sheet": "Invoices", "field": "poNumber" },
+        { "application": "SpreadsheetApp", "operation": "READ_CELL", "sheet": "Invoices", "field": "unitPrice" }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E001" },
+        { "sourceType": "OBSERVED", "sourceId": "E002" },
+        { "sourceType": "OBSERVED", "sourceId": "E003" },
+        { "sourceType": "OBSERVED", "sourceId": "E004" }
+      ]
+    },
+    {
+      "id": "TASK-02",
+      "type": "BusinessTask",
+      "intent": "Retrieve the agreed purchase-order unit price",
+      "entity": "ENTITY-PO",
+      "inputs": ["VAR-PO-NUMBER"],
+      "outputs": ["VAR-PO-PRICE"],
+      "dependsOn": ["TASK-01"],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "SELECT_SHEET", "sheet": "Purchase Orders" },
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Purchase Orders" },
+        { "application": "SpreadsheetApp", "operation": "READ_CELL", "sheet": "Purchase Orders", "field": "unitPrice" }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E005" },
+        { "sourceType": "OBSERVED", "sourceId": "E006" },
+        { "sourceType": "OBSERVED", "sourceId": "E007" },
+        { "sourceType": "STATED", "sourceId": "NARRATION-A" }
+      ]
+    },
+    {
+      "id": "TASK-03",
+      "type": "BusinessTask",
+      "intent": "Retrieve the maximum allowed price variance rule",
+      "entity": "ENTITY-RULE",
+      "inputs": [],
+      "outputs": ["VAR-MAX-VARIANCE-PCT"],
+      "implementationHints": [
+        { "application": "SpreadsheetApp", "operation": "SELECT_SHEET", "sheet": "Processing Rules" },
+        { "application": "SpreadsheetApp", "operation": "LOOKUP_ROW", "sheet": "Processing Rules" },
+        { "application": "SpreadsheetApp", "operation": "READ_CELL", "sheet": "Processing Rules", "field": "value" }
+      ],
+      "provenance": [
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "NARRATION-A",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.7,
+          "rationale": "No discrete event visits Processing Rules in Demonstration A; this task is inferred so the rule threshold is read live rather than hardcoded, matching Part 9's robustness requirement. Flagged for SME confirmation."
+        }
+      ]
+    }
+  ],
+
+  "computations": [
+    {
+      "id": "COMP-PRICE-VARIANCE",
+      "type": "Computation",
+      "function": "ABS_PERCENT_DIFFERENCE",
+      "inputs": ["VAR-INVOICE-PRICE", "VAR-PO-PRICE"],
+      "output": "VAR-PRICE-VARIANCE-PCT",
+      "provenance": [
+        { "sourceType": "STATED", "sourceId": "NARRATION-A" }
+      ]
+    }
+  ],
+
+  "rules": [
+    {
+      "id": "RULE-PRICE-TOLERANCE",
+      "type": "BusinessRule",
+      "name": "Maximum Price Variance",
+      "condition": {
+        "operator": "<=",
+        "left": { "ref": "VAR-PRICE-VARIANCE-PCT" },
+        "right": { "ref": "VAR-MAX-VARIANCE-PCT" }
+      },
+      "provenance": [
+        { "sourceType": "STATED", "sourceId": "NARRATION-A" },
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "NARRATION-A",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.8,
+          "rationale": "Narration states 'if the price difference is within the allowed tolerance, I can release the invoice' — the <= operator and its operands are inferred from this statement plus the observed RELEASED outcome (E009), not literally spelled out as a formula by the SME."
+        }
+      ]
+    }
+  ],
+
+  "decisions": [
+    {
+      "id": "DEC-01",
+      "type": "Decision",
+      "intent": "Decide the invoice's resolution based on price tolerance",
+      "outcomes": [
+        {
+          "condition": { "ref": "RULE-PRICE-TOLERANCE", "equals": true },
+          "result": "RELEASED",
+          "writeAction": { "entity": "ENTITY-INVOICE", "field": "resolution", "value": "RELEASED" }
+        },
+        {
+          "condition": { "ref": "RULE-PRICE-TOLERANCE", "equals": false },
+          "result": "PROCUREMENT_REVIEW",
+          "writeAction": { "entity": "ENTITY-INVOICE", "field": "resolution", "value": "PROCUREMENT_REVIEW" }
+        }
+      ],
+      "provenance": [
+        { "sourceType": "OBSERVED", "sourceId": "E009" },
+        { "sourceType": "STATED", "sourceId": "NARRATION-A" },
+        {
+          "sourceType": "INFERRED",
+          "sourceId": "NARRATION-A",
+          "inferredBy": "evidence-to-ir-compiler",
+          "confidence": 0.75,
+          "rationale": "Only the RELEASED branch is directly observed (E009); the PROCUREMENT_REVIEW branch is inferred as the rule's negation, consistent with the process's documented possible outcomes, since Demonstration A never shows the out-of-tolerance path."
+        }
+      ]
+    }
+  ]
+}
